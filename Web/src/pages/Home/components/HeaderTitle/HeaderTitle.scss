@@ -1,10 +1,8 @@
 @import "~styles/base";
 
 .header-title {
-  text-align: center;
   z-index: 999;
   position: relative;
-  color: white;
 
   h5 {
     letter-spacing: 4px;
@@ -16,6 +14,7 @@
   h1 {
     font-weight: 900;
     font-size: 3.5rem;
+    max-width: 100%;
   }
 
   .divider {

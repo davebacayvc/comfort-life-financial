@@ -68,9 +68,29 @@
   background-color: $main-color;
   color: white;
   transform: rotateY(180deg);
+  position: relative;
+  overflow: hidden;
+
+  img {
+    z-index: -1;
+    opacity: 0.1;
+    position: absolute;
+  }
 
   h5 {
     margin-bottom: 1rem;
     font-weight: 900;
+  }
+}
+
+.outline {
+  background-color: transparent;
+  border: 1px solid white;
+
+  svg {
+    color: white;
+  }
+  h5 {
+    color: white;
   }
 }

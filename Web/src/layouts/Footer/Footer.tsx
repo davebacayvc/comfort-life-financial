@@ -9,6 +9,11 @@ const Footer = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
         </p>
+        <ul>
+          <li>Return Policy</li>
+          <li>Privacy Policy</li>
+          <li>Terms and Conditions</li>
+        </ul>
       </div>
       <div className="bottom-footer">
         Copyright © 2022 Comfort Life Financial. All Rights Reserved.

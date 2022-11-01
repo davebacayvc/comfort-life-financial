@@ -9,14 +9,14 @@ const Topnav = () => {
       <Container className="top-nav-container">
         <ul>
           <li>
-            <CallIcon /> <span>+63909320219</span>
+            <CallIcon /> <span>+880 013 143 206</span>
           </li>
           <li>
             <EmailIcon /> <span>test@gmail.com</span>
           </li>
         </ul>
         <Button variant="outlined" className="contact-btn">
-            Contact Us Now
+          Contact Us Now
         </Button>
       </Container>
     </div>
