@@ -2,6 +2,7 @@ import AboutUs from "pages/AboutUs/AboutUs";
 import Home from "pages/Home/Home";
 import { ReactRoutesType } from "./type";
 import PageWrapper from "../layouts/PageWrapper/PageWrapper";
+import ComingSoon from "pages/ComingSoon/ComingSoon";
 
 /* Web App Constant Images */
 export const IMAGES = {
@@ -9,8 +10,8 @@ export const IMAGES = {
     MAIN: "/assets/logos/comfort-life-financial-main-logo.png",
   },
   ICONS: {
-    THINKING: "/assets/icons/thinking-icon.png"
-  }
+    THINKING: "/assets/icons/thinking-icon.png",
+  },
 };
 
 export const VIDEO_FINANCING = "/assets/video/coming-soon-video.mp4";
@@ -19,6 +20,16 @@ export const COMPANY_NAME = "Comfort Life Financial";
 export const REACT_ROUTES: ReactRoutesType[] = [
   {
     PATH: "/",
+    ELEMENT: (
+      <PageWrapper
+        component={<ComingSoon />}
+        showFooter={false}
+        showNavbar={false}
+      />
+    ),
+  },
+  {
+    PATH: "/home",
     ELEMENT: <PageWrapper component={<Home />} />,
   },
   {
