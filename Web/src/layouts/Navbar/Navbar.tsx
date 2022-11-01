@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import Dropdown from "./components/Dropdown/Dropdown";
-import { Button } from "@mui/material/";
 import "./Navbar.scss";
 import { IMAGES } from "constants/constants";
+import Topnav from "./components/Topnav/Topnav";
+import { Button, Container } from "@mui/material";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import { Drawer } from "@mui/material";
+import useResponsive from "hooks/useResponsive";
 
 const Navbar: React.FC = () => {
+  const [openDrawer, setDrawer] = useState(false);
+  const isMobileMode = useResponsive("mobile");
   const navLinks = [
     {
       className: "nav-item",
@@ -56,22 +60,48 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav className="navbar">
-      <Link to="/" className="navbar-logo">
-        <img src={IMAGES.COMPANY_LOGOS.MAIN} alt={IMAGES.COMPANY_LOGOS.MAIN} />
-      </Link>
-      <ul className="nav-menu">
-        {navLinks.map((link) => (
-          <React.Fragment>
-            <li className="nav-item">
-              <Link {...link.linkProps}>{link.linkProps.text}</Link>
-            </li>
-            {link.dropdown && <Dropdown />}
-          </React.Fragment>
-        ))}
-      </ul>
-      <Button />
-    </nav>
+    <React.Fragment>
+      <Topnav />
+      <nav className="navbar">
+        <Container className="container-navbar">
+          <Link to="/" className="navbar-logo">
+            <img
+              src={IMAGES.COMPANY_LOGOS.MAIN}
+              alt={IMAGES.COMPANY_LOGOS.MAIN}
+            />
+          </Link>
+          {!isMobileMode && (
+            <ul className="nav-links">
+              {navLinks.map((link) => (
+                <li>
+                  <Link {...link.linkProps}>{link.linkProps.text}</Link>
+                </li>
+              ))}
+            </ul>
+          )}
+          {isMobileMode && (
+            <Button onClick={() => setDrawer(true)} className="navbar-mobile-button">
+              <MenuOpenIcon />
+            </Button>
+          )}
+        </Container>
+      </nav>
+      {isMobileMode && (
+        <Drawer
+          anchor="right"
+          open={openDrawer}
+          onClose={() => setDrawer(false)}
+        >
+          <ul className="nav-links-drawer">
+            {navLinks.map((link) => (
+              <li>
+                <Link {...link.linkProps}>{link.linkProps.text}</Link>
+              </li>
+            ))}
+          </ul>
+        </Drawer>
+      )}
+    </React.Fragment>
   );
 };
 
