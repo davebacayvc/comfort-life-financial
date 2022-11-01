@@ -5,14 +5,20 @@
   height: 200px;
   perspective: 1000px;
 
+  svg {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+  }
   h5 {
     font-family: Roboto, "sans-serif";
-    font-weight: 300;
     font-size: 2rem;
   }
   p {
     width: 80%;
     margin: inherit auto;
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 18px;
   }
 }
 
@@ -23,7 +29,7 @@
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
 
@@ -51,14 +57,20 @@
 .flip-card-front {
   background-color: #fff;
   color: black;
+
+  h5 {
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
 }
 
 .flip-card-back {
-  background-color: $color-red;
+  background-color: $main-color;
   color: white;
   transform: rotateY(180deg);
 
   h5 {
     margin-bottom: 1rem;
+    font-weight: 900;
   }
 }

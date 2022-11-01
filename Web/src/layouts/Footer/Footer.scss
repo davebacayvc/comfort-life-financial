@@ -7,6 +7,7 @@
   -webkit-box-shadow: 0px -4px 3px #eee;
   -moz-box-shadow: 0px -4px 3px #eee;
   box-shadow: 0px -4px 3px #eee;
+  position: relative;
 
   .footer-wrapper {
     padding: 1rem 0;
@@ -23,7 +24,7 @@
   }
 
   .bottom-footer {
-    background-color: $color-red;
+    background-color: $main-color;
     padding: 1rem;
     color: white;
   }
