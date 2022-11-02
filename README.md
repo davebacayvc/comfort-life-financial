@@ -10,7 +10,7 @@
 - [Visual Code] - awesome web-based text editor
 - [TypeScript] - Easy to debug and check if there's a errors
 - [NodeJS] - For node modules and backend in the future
-- [HTML & CSS] - Configuring the bones of the applications. Duh...
+- [HTML & CSS] - Configuring the bones of the applications.
 - [Sass] - Manipulating the style in a modern way
 
 ## Libraries
