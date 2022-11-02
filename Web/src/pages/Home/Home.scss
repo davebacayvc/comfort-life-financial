@@ -3,6 +3,10 @@
 .home-container {
   .welcome-section {
     position: relative;
+    .slider-image {
+      width: 100%;
+      background-color: green;
+    }
     .aws-sld {
       --cube-animation-duration: 675ms;
       --cube-animation-perspective: 1800px;
@@ -28,12 +32,12 @@
     .slider-captions {
       position: absolute;
       height: 100%;
-      width: 70%;
-      left: 15%;
+      width: 100%;
+      text-align: center;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      align-content: flex-start;
+      align-items: center;
+      align-content: center;
       flex-wrap: nowrap;
       justify-content: center;
       h5 {
@@ -49,15 +53,25 @@
         width: 800px;
       }
     }
+    .slider-captions-mobile {
+      h5 {
+        font-size: 1.6rem;
+      }
+      h1 {
+        font-size: 2rem;
+        width: 50%;
+      }
+    }
   }
 
   .card-container {
     margin-top: -10rem;
   }
+  .card-container-mobile {
+    margin-top: 0rem;
+  }
 
   .endorsement {
-    margin-top: 5rem;
-    margin-bottom: 5rem;
     &-image {
       width: 100%;
     }
@@ -106,11 +120,6 @@
     }
   }
 
-  .stragies {
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-  }
-
   .contact {
     padding: 10rem 0;
     background-size: cover;
@@ -127,5 +136,13 @@
         font-size: 4rem;
       }
     }
+  }
+
+  .appointment-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
   }
 }

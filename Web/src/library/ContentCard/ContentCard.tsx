@@ -1,7 +1,8 @@
 import "./ContentCard.scss";
 import React from "react";
+import classNames from "classnames";
 
-interface ContentCardProps {
+export interface ContentCardProps {
   header: string;
   firstTitle: string;
   secondTitle: string;
@@ -11,10 +12,14 @@ interface ContentCardProps {
     title: string;
     description: string;
   }[];
+  isMobileMode: boolean;
 }
 const ContentCard: React.FC<ContentCardProps> = (props) => {
+  const contentCardClassnames = classNames("content-card", {
+    "content-card-mobile": props.isMobileMode,
+  });
   return (
-    <div className="content-card">
+    <div className={contentCardClassnames}>
       <h5 className="header">{props.header}</h5>
       <div className="content-card-title">
         <h1>{props.firstTitle}</h1>
@@ -22,7 +27,7 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
       </div>
       <div className="divider" />
       {props.icons && (
-        <div className="content-card-icons">
+        <React.Fragment>
           {props.icons?.map((icon, index) => (
             <div className="content-card-icons" key={index}>
               {icon.icon}
@@ -32,7 +37,7 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
               </div>
             </div>
           ))}
-        </div>
+        </React.Fragment>
       )}
       {props.description && <p className="description">{props.description}</p>}
     </div>
