@@ -3,7 +3,7 @@ import { useMediaQuery } from "react-responsive";
 type DeviceTypes = "mobile" | "desktop";
 
 const VIEW_SIZES = {
-  MAX_MOBILE_WIDTH: 700,
+  MAX_MOBILE_WIDTH: 900,
   MAX_DESKTOP_WIDTH: 1200,
 };
 

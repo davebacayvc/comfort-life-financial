@@ -5,6 +5,7 @@ import "./Card.scss";
 type CardProps = {
   isFlipped?: boolean;
   variant?: "outlined";
+  isMobileMode: boolean;
   content: {
     front: {
       title: JSX.Element | string;

@@ -7,19 +7,35 @@ import Card from "library/Card/Card";
 import { Container } from "@mui/system";
 import servicesData from "data/services";
 import { useState } from "react";
-import ContentCard from "library/ContentCard/ContentCard";
+import ContentCard, { ContentCardProps } from "library/ContentCard/ContentCard";
 import Video from "./components/Video/Video";
 import HeaderTitle from "./components/HeaderTitle/HeaderTitle";
 import Button from "library/Button/Button";
-import { PopupModal, useCalendlyEventListener } from "react-calendly";
+import {
+  InlineWidget,
+  PopupModal,
+  useCalendlyEventListener,
+} from "react-calendly";
 import useResponsive from "hooks/useResponsive";
+import Wrapper from "./components/Wrapper/Wrapper";
+import React from "react";
+import classNames from "classnames";
 
 const Home: React.FC = () => {
-  const [services, setServices] = useState(servicesData);
+  const [services] = useState(servicesData);
   const [calendlyModal, setCalendlyModal] = useState(false);
   const isMobileMode = useResponsive("mobile");
 
+  const cardContainerClassnames = classNames("card-container", {
+    "card-container-mobile": isMobileMode,
+  });
+
+  const sliderCaptionClassnames = classNames("slider-captions", {
+    "slider-captions-mobile": isMobileMode,
+  });
+
   const servicesProps = {
+    isMobileMode,
     header: "30 YEARS OF EXPERIENCE",
     firstTitle: "Preparing For Your Success",
     secondTitle: "Provide Best Finance Solutions.",
@@ -27,31 +43,82 @@ const Home: React.FC = () => {
       "We are privileged to work with hundred future-thinking awesome businesses including many of the world’s top hardware and get IT service for your technology.",
     icons: [
       {
-        icon: <img src="/assets/icons/thinking-icon.png" />,
+        icon: (
+          <img src="/assets/icons/thinking-icon.png" alt="description-icon" />
+        ),
         title: "Warranty Management",
         description:
           "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
       },
       {
-        icon: <img src="/assets/icons/thinking-icon.png" />,
+        icon: (
+          <img src="/assets/icons/thinking-icon.png" alt="description-icon" />
+        ),
         title: "Warranty Management",
         description:
           "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
       },
       {
-        icon: <img src="/assets/icons/thinking-icon.png" />,
+        icon: (
+          <img src="/assets/icons/thinking-icon.png" alt="description-icon" />
+        ),
         title: "Warranty Management",
         description:
           "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
       },
       {
-        icon: <img src="/assets/icons/thinking-icon.png" />,
+        icon: (
+          <img src="/assets/icons/thinking-icon.png" alt="description-icon" />
+        ),
         title: "Warranty Management",
         description:
           "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
       },
       {
-        icon: <img src="/assets/icons/thinking-icon.png" />,
+        icon: (
+          <img src="/assets/icons/thinking-icon.png" alt="description-icon" />
+        ),
+        title: "Warranty Management",
+        description:
+          "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
+      },
+    ],
+  };
+
+  const appointmentProps: ContentCardProps = {
+    header: "SCHEDULE A APPOINTMENT",
+    firstTitle: "Lorem ipsum dolor sit amet",
+    secondTitle: "Consectetur adipiscing elit",
+    isMobileMode: isMobileMode,
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+    icons: [
+      {
+        icon: <img src="/assets/icons/clock.png" alt="description-icon" />,
+        title: "Warranty Management",
+        description:
+          "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
+      },
+      {
+        icon: <img src="/assets/icons/clock.png" alt="description-icon" />,
+        title: "Warranty Management",
+        description:
+          "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
+      },
+      {
+        icon: <img src="/assets/icons/clock.png" alt="description-icon" />,
+        title: "Warranty Management",
+        description:
+          "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
+      },
+      {
+        icon: <img src="/assets/icons/clock.png" alt="description-icon" />,
+        title: "Warranty Management",
+        description:
+          "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
+      },
+      {
+        icon: <img src="/assets/icons/clock.png" alt="description-icon" />,
         title: "Warranty Management",
         description:
           "Morem Ipsum is simply dummy text of the printing and presetting found it agency business.",
@@ -69,33 +136,35 @@ const Home: React.FC = () => {
   return (
     <div className="home-container">
       <div className="welcome-section">
-        <AwesomeSlider bullets={false} animation="cubeAnimation">
+        <AwesomeSlider
+          bullets={false}
+          animation="cubeAnimation"
+          infinite={true}
+          mobileTouch={true}
+        >
           <div>
-            {!isMobileMode && (
-              <div className="slider-captions">
-                <h5>Welcome to Comfort Life Financial</h5>
-                <h1>We are creative financial for your life.</h1>
-              </div>
-            )}
+            <div className={sliderCaptionClassnames}>
+              <h5>Welcome to Comfort Life Financial</h5>
+              <h1>We are creative financial for your life.</h1>
+            </div>
             <img src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png" />
           </div>
           <div>
-            {!isMobileMode && (
-              <div className="slider-captions">
-                <h5>Test Welcome to Comfort Life Financial</h5>
-                <h1>We are creative financial for your life.</h1>
-              </div>
-            )}
+            <div className={sliderCaptionClassnames}>
+              <h5>Welcome to Comfort Life Financial</h5>
+              <h1>We are creative financial for your life.</h1>
+            </div>
             <img src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png" />
           </div>
         </AwesomeSlider>
       </div>
-      <Container>
-        <div className="card-container">
+      <Wrapper className={cardContainerClassnames}>
+        <Container>
           <Grid container spacing={2}>
             {services.slice(0, 4).map((service) => (
               <Grid item xs={6} sm={6} md={3} lg={3} key={service.id}>
                 <Card
+                  isMobileMode={isMobileMode}
                   content={{
                     front: { title: service.title, icon: service.icon },
                     back: {
@@ -108,8 +177,10 @@ const Home: React.FC = () => {
               </Grid>
             ))}
           </Grid>
-        </div>
-        <div className="endorsement">
+        </Container>
+      </Wrapper>
+      <Wrapper className="endorsement">
+        <Container>
           <Grid container spacing={2} className="endorsement-container">
             <Grid item xs={12} sm={12} md={6} lg={6}>
               <img
@@ -122,37 +193,40 @@ const Home: React.FC = () => {
               <ContentCard {...servicesProps} />
             </Grid>
           </Grid>
-        </div>
-      </Container>
-      <div className="services">
-        <Video />
-        <Container>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <HeaderTitle
-                title="Services"
-                bigTitle="Provide Exclusive Services"
-              />
-            </Grid>
-            {services.slice(0, 8).map((service) => (
-              <Grid item xs={6} sm={6} md={3} lg={3} key={service.id}>
-                <Card
-                  content={{
-                    front: { title: service.title, icon: service.icon },
-                    back: {
-                      title: service.title,
-                      description: service.description,
-                      icon: service.icon,
-                    },
-                  }}
-                  variant="outlined"
+        </Container>
+      </Wrapper>
+      <Wrapper className="services">
+        <React.Fragment>
+          <Video />
+          <Container>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <HeaderTitle
+                  title="Services"
+                  bigTitle="Provide Exclusive Services"
                 />
               </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </div>
-      <div className="stragies">
+              {services.slice(0, 8).map((service) => (
+                <Grid item xs={6} sm={6} md={3} lg={3} key={service.id}>
+                  <Card
+                    isMobileMode={isMobileMode}
+                    content={{
+                      front: { title: service.title, icon: service.icon },
+                      back: {
+                        title: service.title,
+                        description: service.description,
+                        icon: service.icon,
+                      },
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </React.Fragment>
+      </Wrapper>
+      <Wrapper className="stragies">
         <Container>
           <Grid container spacing={2} className="endorsement-container">
             <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -161,6 +235,7 @@ const Home: React.FC = () => {
                 firstTitle="Wealth Building Strategy"
                 secondTitle="Be your own banker to build wealth."
                 description="A long-term asset accumulation strategy should have the potential to outpace inflation and take into consideration how different products and account types are taxed. When determining the best strategy for you, it's important to determine how long you may live in retirement and how much it will cost to live comfortably during those years."
+                isMobileMode={isMobileMode}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -172,8 +247,8 @@ const Home: React.FC = () => {
             </Grid>
           </Grid>
         </Container>
-      </div>
-      <div
+      </Wrapper>
+      <Wrapper
         className="contact"
         style={{ backgroundImage: `url("/assets/others/bg.png")` }}
       >
@@ -188,14 +263,31 @@ const Home: React.FC = () => {
             url="https://calendly.com/dave-bacay-vc/call-us-testing"
             onModalClose={() => setCalendlyModal(false)}
             open={calendlyModal}
-            /*
-             * react-calendly uses React's Portal feature (https://reactjs.org/docs/portals.html) to render the popup modal. As a result, you'll need to
-             * specify the rootElement property to ensure that the modal is inserted into the correct domNode.
-             */
             rootElement={document.getElementById("root") as any}
           />
         </Container>
-      </div>
+      </Wrapper>
+      <Wrapper>
+        <React.Fragment>
+          <Container>
+            <Grid container spacing={2} className="appointment-container">
+              <Grid item xs={12} sm={12} md={6} lg={6}>
+                <ContentCard {...appointmentProps} />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6} lg={6}>
+                <InlineWidget
+                  url="https://calendly.com/dave-bacay-vc/call-us-testing"
+                  styles={{
+                    height: "950px",
+                    width: "100%",
+                    marginBottom: "-5rem",
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Container>
+        </React.Fragment>
+      </Wrapper>
     </div>
   );
 };

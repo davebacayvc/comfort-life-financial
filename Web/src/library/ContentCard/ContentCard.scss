@@ -53,3 +53,43 @@
     }
   }
 }
+
+.content-card-mobile {
+  .header {
+    text-align: center;
+  }
+  .description {
+    text-align: center;
+  }
+  .content-card-title {
+    h1 {
+      text-align: center;
+    }
+    h3 {
+      text-align: center;
+    }
+  }
+  .divider {
+    margin: 1rem auto 2rem auto;
+  }
+  .content-card-icons {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    h5 {
+      font-size: 2.1rem;
+    }
+    p {
+      width: 80%;
+      margin: auto;
+    }
+  }
+
+  .description {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    line-height: 20px;
+    font-size: 1.3rem;
+  }
+}
