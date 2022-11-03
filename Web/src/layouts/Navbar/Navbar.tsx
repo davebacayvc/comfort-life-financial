@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: "nav-links",
-        to: "/",
+        to: "/home",
         text: "Home",
       },
       dropdown: false,
@@ -80,7 +80,10 @@ const Navbar: React.FC = () => {
             </ul>
           )}
           {isMobileMode && (
-            <Button onClick={() => setDrawer(true)} className="navbar-mobile-button">
+            <Button
+              onClick={() => setDrawer(true)}
+              className="navbar-mobile-button"
+            >
               <MenuOpenIcon />
             </Button>
           )}
