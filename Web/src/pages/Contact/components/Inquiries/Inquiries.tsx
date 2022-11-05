@@ -8,8 +8,7 @@ const Inquiries = () => {
         <h5>Stay in touch</h5>
         <p>
           Stay in touch and keep up-to-date with all our latest news, events and
-          campaigns.You can do this by joining us on social media. Get in touch
-          on Twitter, Facebook, and more social networks.
+          campaigns.
         </p>
       </div>
       <div className="inquiries-contact-list">
