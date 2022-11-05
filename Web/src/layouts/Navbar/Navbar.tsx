@@ -73,8 +73,8 @@ const Navbar: React.FC = () => {
           </Link>
           {!isMobileMode && (
             <ul className="nav-links">
-              {navLinks.map((link) => (
-                <li>
+              {navLinks.map((link, index) => (
+                <li key={index}>
                   <Link {...link.linkProps}>{link.linkProps.text}</Link>
                 </li>
               ))}
@@ -97,8 +97,8 @@ const Navbar: React.FC = () => {
           onClose={() => setDrawer(false)}
         >
           <ul className="nav-links-drawer">
-            {navLinks.map((link) => (
-              <li>
+            {navLinks.map((link, index) => (
+              <li key={index}>
                 <Link {...link.linkProps}>{link.linkProps.text}</Link>
               </li>
             ))}

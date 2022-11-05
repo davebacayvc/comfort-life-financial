@@ -1,0 +1,23 @@
+.label-value {
+  h5 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+}
+
+.label-value-bold {
+  h5 {
+    font-weight: 800;
+  }
+}
+.label-value-light {
+  h5 {
+    font-weight: 400;
+  }
+}
