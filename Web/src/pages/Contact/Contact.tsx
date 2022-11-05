@@ -1,26 +1,57 @@
 import { Container, Grid } from "@mui/material";
 import Banner from "library/Banner/Banner";
+import Button from "library/Button/Button";
+import HeaderTitle from "pages/Home/components/HeaderTitle/HeaderTitle";
+import Wrapper from "pages/Home/components/Wrapper/Wrapper";
+import { useState } from "react";
+import { PopupModal } from "react-calendly";
+import Form from "./components/Form/Form";
 import Inquiries from "./components/Inquiries/Inquiries";
 import "./Contact.scss";
 
 const Contact = () => {
+  const [calendlyModal, setCalendlyModal] = useState(false);
+
   return (
-    <div>
+    <div className="contact">
       <Banner
         bigTitle="Contact Us"
         title="Share your suggestions and feedback with us."
         hasBorder={true}
       />
       <Container>
-        <Grid container>
-          <Grid xs={12} md={8} lg={8}>
-            asd
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={8} lg={8}>
+            <Form />
           </Grid>
-          <Grid xs={12} md={4} lg={4}>
+          <Grid item xs={12} md={4} lg={4}>
             <Inquiries />
           </Grid>
         </Grid>
       </Container>
+
+      {/* TODO */}
+      <Wrapper
+        className="contact-section"
+        style={{ backgroundImage: `url("/assets/others/bg.png")` }}
+      >
+        <Container>
+          <HeaderTitle
+            title="+880 013 143 206"
+            bigTitle="To Make Requests For The Further Information"
+            hasBorder={false}
+          />
+          <Button onClick={() => setCalendlyModal(true)}>
+            Book a Appointment
+          </Button>
+          <PopupModal
+            url="https://calendly.com/dave-bacay-vc/call-us-testing"
+            onModalClose={() => setCalendlyModal(false)}
+            open={calendlyModal}
+            rootElement={document.getElementById("root") as any}
+          />
+        </Container>
+      </Wrapper>
     </div>
   );
 };

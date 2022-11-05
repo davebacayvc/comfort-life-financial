@@ -2,7 +2,8 @@ import { Formik } from "formik";
 import "./Form.scss";
 import * as Yup from "yup";
 import { useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
+import LabeledInput from "../LabeledInput/LabeledInput";
 
 type EmailData = {
   fullName: string;
@@ -119,19 +120,16 @@ const Form = () => {
             },
           ];
           return (
-            <form onSubmit={handleSubmit}>
-              <Grid container>
+            <form onSubmit={handleSubmit} className="form">
+              <Grid container spacing={2}>
                 {labeledInput.map((data, index) => (
                   <Grid item {...{ ...data.colDef }} key={index}>
-                    {/* <LabeledInput
-                      name={data.name}
+                    <TextField
                       label={data.label}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={data.value as any}
-                      type={data.isTextArea ? "textarea" : "text"}
-                      errors={errors}
-                    /> */}
+                      variant="filled"
+                      fullWidth
+                      className="filled-input"
+                    />
                   </Grid>
                 ))}
               </Grid>
