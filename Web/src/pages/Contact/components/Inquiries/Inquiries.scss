@@ -1,0 +1,59 @@
+@import "~styles/base";
+
+.inquiries {
+  .inquiries-get-in-touch {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    h5 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #333;
+      margin-bottom: 0.3rem;
+    }
+    p {
+      font-size: 1.3rem;
+    }
+  }
+
+  .inquiries-contact-list {
+    h5 {
+      font-size: 1.6rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+
+      li {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+  .contact-name {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 1rem;
+
+    svg {
+      margin-right: 0.5rem;
+
+      path {
+        color: $main-color;
+      }
+    }
+
+    .contact-value {
+      margin-left: 0.5rem;
+    }
+  }
+}

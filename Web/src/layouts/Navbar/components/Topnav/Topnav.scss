@@ -34,13 +34,21 @@
       font-size: 1.2rem;
       font-weight: 300;
 
+      svg {
+        path {
+          color: #fff;
+        }
+      }
+
       span {
         margin-left: 0.5rem;
+        font-weight: 400;
       }
     }
     li > * {
       display: inline-block;
       vertical-align: middle;
+      color: #fff;
     }
   }
 }

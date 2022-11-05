@@ -70,6 +70,17 @@
   transform: rotateY(180deg);
   position: relative;
   overflow: hidden;
+  svg {
+    path {
+      color: white;
+    }
+  }
+
+  h5,
+  h1,
+  p {
+    color: white;
+  }
 
   img {
     z-index: -1;
