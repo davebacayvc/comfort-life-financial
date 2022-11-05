@@ -89,6 +89,18 @@
     overflow: hidden;
     padding: 8rem 0;
 
+    svg {
+      path {
+        color: white;
+      }
+    }
+
+    h5,
+    h1,
+    p {
+      color: white;
+    }
+
     .header-title {
       color: white;
       text-align: center;
@@ -129,11 +141,13 @@
 
       h5 {
         font-weight: 300;
+        color: white;
       }
       h1 {
         width: 450px;
         font-weight: 600;
         font-size: 4rem;
+        color: white;
       }
     }
   }

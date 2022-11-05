@@ -14,31 +14,13 @@ const PageWrapper: React.FC<IPageWrapper> = (props) => {
     "has-margin-top": false,
   });
 
-  if (props.showNavbar && props.showFooter && props.component) {
-    return (
-      <div className={wrapperClassname}>
-        <Navbar />
-        {props.component}
-        <Footer />
-      </div>
-    );
-  } else if (props.showFooter && props.component) {
-    return (
-      <div className={wrapperClassname}>
-        {props.component}
-        <Footer />
-      </div>
-    );
-  } else if (props.showNavbar && props.component) {
-    return (
-      <div className={wrapperClassname}>
-        <Navbar />
-        {props.component}
-      </div>
-    );
-  }
-
-  return props.component;
+  return (
+    <div className={wrapperClassname}>
+      {props.showNavbar && <Navbar />}
+      {props.component}
+      {props.showFooter && <Footer />}
+    </div>
+  );
 };
 
 PageWrapper.defaultProps = {

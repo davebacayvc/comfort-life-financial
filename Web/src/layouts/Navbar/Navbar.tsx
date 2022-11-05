@@ -7,6 +7,7 @@ import { Button, Container } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import { Drawer } from "@mui/material";
 import useResponsive from "hooks/useResponsive";
+import paths from "constants/routes";
 
 const Navbar: React.FC = () => {
   const [openDrawer, setDrawer] = useState(false);
@@ -16,7 +17,7 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: "nav-links",
-        to: "/home",
+        to: paths.home,
         text: "Home",
       },
       dropdown: false,
@@ -25,7 +26,7 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: "nav-links",
-        to: "/about",
+        to: paths.about,
         text: "About Us",
       },
       dropdown: false,
@@ -34,7 +35,7 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: "nav-links",
-        to: "/contact",
+        to: paths.contact,
         text: "Contact",
       },
       dropdown: false,
@@ -43,7 +44,7 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: "nav-links",
-        to: "/services",
+        to: paths.services,
         text: "Services",
       },
       dropdown: false,
@@ -52,7 +53,7 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: "nav-links",
-        to: "/portal",
+        to: paths.portal,
         text: "Portal",
       },
       dropdown: false,
