@@ -1,16 +1,23 @@
 import { Formik } from "formik";
 import "./Form.scss";
 import * as Yup from "yup";
-import { useState } from "react";
-import { Grid, TextField } from "@mui/material";
-import LabeledInput from "../LabeledInput/LabeledInput";
+import { Grid } from "@mui/material";
+import FormikTextInput from "library/Formik/FormikInput";
+import FormikRadio from "library/Formik/FormikRadio";
+import Button from "library/Button/Button";
+import Promt from "library/Prompt/Promt";
+import emailjs from "@emailjs/browser";
+import { useRef, useState } from "react";
+import Spinner from "library/Spinner/Spinner";
+import Toast from "library/Toast/Toast";
 
-type EmailData = {
+type FormikData = {
   fullName: string;
   mobileNumber: string;
   emailAddress: string;
   subject: string;
   message: string;
+  inquiryType: string;
 };
 
 interface ILabeledInput {
@@ -26,13 +33,13 @@ interface ILabeledInput {
 }
 const Form = () => {
   const [showToast, setShowToast] = useState(false);
-
   const initialValues = {
     fullName: "",
     mobileNumber: "",
     emailAddress: "",
     subject: "",
     message: "",
+    inquiryType: "genInquiry",
   };
 
   const validationSchema = Yup.object({
@@ -44,28 +51,73 @@ const Form = () => {
     subject: Yup.string().required("Subject field is required."),
     message: Yup.string().required("Message field is required."),
   });
+
+  const form = useRef<any>();
+
+  const emailJSCredsAdmins = {
+    service: "service_rs7qsgl",
+    template: "template_86hqhae",
+    publicKey: "HoGq2N35u7XA9JbtF",
+  };
+
+  const emailJSCredsUsers = {
+    service: "service_0cqfh79",
+    template: "template_86hqhae",
+    publicKey: "HoGq2N35u7XA9JbtF",
+  };
   return (
-    <div className="distributor-form">
+    <div className="contact-form">
+      <div className="form-instructions">
+        <h2>FILLUP FORM</h2>
+        <p>All fields are required.</p>
+      </div>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(data: EmailData, { setSubmitting }) => {
+        onSubmit={(data: FormikData, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          setTimeout(() => {
-            setShowToast(true);
-            console.log(data);
-            setSubmitting(false);
-          }, 5000);
+          emailjs
+            .sendForm(
+              emailJSCredsAdmins.service,
+              emailJSCredsAdmins.template,
+              form.current,
+              emailJSCredsAdmins.publicKey
+            )
+            .then(
+              (result) => {
+                console.log(result.text);
+              },
+              (error) => {
+                console.log(error.text);
+                setSubmitting(false);
+              }
+            )
+            .then((result) => {
+              emailjs
+                .sendForm(
+                  emailJSCredsUsers.service,
+                  "template_xswefxu",
+                  form.current,
+                  emailJSCredsUsers.publicKey
+                )
+                .then(
+                  (result) => {
+                    console.log(result.text);
+                    console.log(result);
+                    console.log(form.current);
+                    setSubmitting(false);
+                    setShowToast(true);
+                    resetForm();
+                  },
+                  (error) => {
+                    console.log(error.text);
+                    setSubmitting(false);
+                  }
+                );
+            });
         }}
       >
-        {({
-          values,
-          isSubmitting,
-          handleChange,
-          handleSubmit,
-          handleBlur,
-          errors,
-        }) => {
+        {({ values, handleSubmit, dirty, resetForm, isSubmitting, errors }) => {
           const labeledInput: ILabeledInput[] = [
             {
               name: "fullName",
@@ -120,19 +172,77 @@ const Form = () => {
             },
           ];
           return (
-            <form onSubmit={handleSubmit} className="form">
+            <form onSubmit={handleSubmit} className="form" ref={form}>
               <Grid container spacing={2}>
                 {labeledInput.map((data, index) => (
                   <Grid item {...{ ...data.colDef }} key={index}>
-                    <TextField
+                    <FormikTextInput
                       label={data.label}
                       variant="filled"
                       fullWidth
                       className="filled-input"
+                      name={data.name}
                     />
                   </Grid>
                 ))}
+                <Grid item md={12}>
+                  <div className="radio-wrapper">
+                    <h2>Type of Inquiry</h2>
+                    <FormikRadio
+                      name="inquiryType"
+                      type="radio"
+                      value="genInquiry"
+                      label="General Inquiry"
+                    />
+                    <FormikRadio
+                      name="inquiryType"
+                      type="radio"
+                      value="followAppointment"
+                      label="Follow Up Appointment"
+                    />
+                    <FormikRadio
+                      name="inquiryType"
+                      type="radio"
+                      value="initialInformation"
+                      label="Initial Information"
+                    />
+                    <FormikRadio
+                      name="inquiryType"
+                      type="radio"
+                      value="other"
+                      label="Other"
+                    />
+                    {values.inquiryType === "other" && (
+                      <FormikTextInput
+                        label="Other"
+                        variant="filled"
+                        fullWidth
+                        className="filled-input"
+                        name="inquiryTypeOther"
+                      />
+                    )}
+                  </div>
+                </Grid>
               </Grid>
+              <Grid
+                container
+                justifyContent="flex-end"
+                className="button-container"
+              >
+                <Button onClick={() => resetForm()} className="reset-btn">
+                  RESET
+                </Button>
+                <Button
+                  onClick={() => handleSubmit()}
+                  className="submit-btn"
+                  disabled={Object.keys(errors).length !== 0}
+                >
+                  SUBMIT
+                </Button>
+              </Grid>
+              <Promt isDirty={dirty} />
+              <Spinner isVisible={isSubmitting} />
+              <Toast setter={setShowToast} isVisible={showToast} />
             </form>
           );
         }}

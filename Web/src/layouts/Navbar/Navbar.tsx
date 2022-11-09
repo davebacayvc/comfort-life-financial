@@ -10,13 +10,17 @@ import useResponsive from "hooks/useResponsive";
 import paths from "constants/routes";
 
 const Navbar: React.FC = () => {
+  const url = window.location.href;
+  const currentPage = url.split("/")[3];
   const [openDrawer, setDrawer] = useState(false);
   const isMobileMode = useResponsive("mobile");
   const navLinks = [
     {
       className: "nav-item",
       linkProps: {
-        className: "nav-links",
+        className: `nav-links ${
+          currentPage === paths.home.substring(1) ? "nav-links-active" : ""
+        }`,
         to: paths.home,
         text: "Home",
       },
@@ -25,7 +29,9 @@ const Navbar: React.FC = () => {
     {
       className: "nav-item",
       linkProps: {
-        className: "nav-links",
+        className: `nav-links ${
+          currentPage === paths.about.substring(1) ? "nav-links-active" : ""
+        }`,
         to: paths.about,
         text: "About Us",
       },
@@ -34,7 +40,9 @@ const Navbar: React.FC = () => {
     {
       className: "nav-item",
       linkProps: {
-        className: "nav-links",
+        className: `nav-links ${
+          currentPage === paths.contact.substring(1) ? "nav-links-active" : ""
+        }`,
         to: paths.contact,
         text: "Contact",
       },
@@ -43,7 +51,9 @@ const Navbar: React.FC = () => {
     {
       className: "nav-item",
       linkProps: {
-        className: "nav-links",
+        className: `nav-links ${
+          currentPage === paths.services.substring(1) ? "nav-links-active" : ""
+        }`,
         to: paths.services,
         text: "Services",
       },
@@ -52,7 +62,9 @@ const Navbar: React.FC = () => {
     {
       className: "nav-item",
       linkProps: {
-        className: "nav-links",
+        className: `nav-links ${
+          currentPage === paths.portal.substring(1) ? "nav-links-active" : ""
+        }`,
         to: paths.portal,
         text: "Portal",
       },

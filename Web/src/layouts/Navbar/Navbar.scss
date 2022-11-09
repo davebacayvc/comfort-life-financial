@@ -52,6 +52,9 @@ $navlink-color-hovered: #0c5adb;
             color: $main-color;
           }
         }
+        .nav-links-active {
+          color: $main-color;
+        }
       }
     }
   }
@@ -67,7 +70,7 @@ $navlink-color-hovered: #0c5adb;
 
     &:hover {
       background-color: $main-color;
-      
+
       a {
         color: #fff;
       }
