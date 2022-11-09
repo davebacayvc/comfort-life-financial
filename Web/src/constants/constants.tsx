@@ -7,6 +7,7 @@ import paths from "./routes";
 import Contact from "pages/Contact/Contact";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import InvalidRoute from "pages/InvalidRoute/InvalidRoute";
 
 /* Web App Constant Images */
 export const IMAGES = {
@@ -46,7 +47,13 @@ export const REACT_ROUTES: ReactRoutesType[] = [
   },
   {
     PATH: "*",
-    ELEMENT: <PageWrapper component={<Contact />} />,
+    ELEMENT: (
+      <PageWrapper
+        component={<InvalidRoute />}
+        showFooter={false}
+        showNavbar={false}
+      />
+    ),
   },
 ];
 
