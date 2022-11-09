@@ -14,3 +14,8 @@ button.custom-button {
     color: white;
   }
 }
+
+button.custom-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

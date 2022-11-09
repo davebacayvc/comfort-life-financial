@@ -30,9 +30,12 @@ const FormikTextInput: React.FC<IFormikTextInput> = (props) => {
         {...props}
         value={field.value}
         onChange={handleOnChange}
-        helperText="Incorrect entry."
+        helperText={errorText}
+        error={!!errorText}
+        label={props.label}
         variant="filled"
-        label="Error"
+        fullWidth
+        className="filled-input"
       />
     </React.Fragment>
   );

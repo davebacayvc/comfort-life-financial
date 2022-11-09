@@ -13,3 +13,29 @@ html {
   font-size: 62.5%;
   overflow-x: hidden;
 }
+body {
+  padding-right: 0 !important;
+}
+
+pre {
+  font-size: 13px;
+  font-family: monospace;
+}
+
+/* MUI styles */
+.MuiFormHelperText-root {
+  font-size: 1.3rem !important;
+}
+
+.MuiCircularProgress-circle {
+  color: white;
+}
+
+.MuiSnackbarContent-message {
+  color: #333;
+  font-size: 1.4rem;
+}
+.MuiPaper-elevation {
+  border-left: 3px solid $main-color;
+  background: #fff !important;
+}

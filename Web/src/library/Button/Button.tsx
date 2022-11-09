@@ -1,17 +1,19 @@
 import React from "react";
-import { Button as MUIButton } from "@mui/material";
+import { Button as MUIButton, ButtonProps } from "@mui/material";
 import "./Button.scss";
 import classNames from "classnames";
 
-type ButtonProps = {
+type ButtonDefaultProps = ButtonProps & {
   children: string;
   onClick: () => void;
   className?: string;
 };
-const Button: React.FC<ButtonProps> = (props) => {
-  const buttonClassnames = classNames("custom-button", props.className);
+const Button: React.FC<ButtonDefaultProps> = (props) => {
+  const buttonClassnames = classNames("custom-button", props.className, {
+    "custom-button-disabled": props.disabled,
+  });
   return (
-    <MUIButton className={buttonClassnames} onClick={props.onClick}>
+    <MUIButton {...props} className={buttonClassnames}>
       {props.children}
     </MUIButton>
   );
