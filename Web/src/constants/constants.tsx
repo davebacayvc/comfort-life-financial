@@ -8,6 +8,7 @@ import Contact from "pages/Contact/Contact";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import InvalidRoute from "pages/InvalidRoute/InvalidRoute";
+import Portal from "pages/Portal/Portal";
 
 /* Web App Constant Images */
 export const IMAGES = {
@@ -44,6 +45,10 @@ export const REACT_ROUTES: ReactRoutesType[] = [
   {
     PATH: paths.contact,
     ELEMENT: <PageWrapper component={<Contact />} />,
+  },
+  {
+    PATH: paths.portal,
+    ELEMENT: <PageWrapper component={<Portal />} />,
   },
   {
     PATH: "*",
