@@ -42,7 +42,6 @@ const AboutUs = () => {
                     bgImageSizes="10%"
                   >
                     <div style={{ height: 500 }}></div>
-                    asd
                   </Parallax>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -67,7 +66,7 @@ const AboutUs = () => {
             spacing={2}
           >
             {members.map((member) => (
-              <Grid item xs={6} sm={6} md={3} lg={3}>
+              <Grid item xs={6} md>
                 <div className="team-members-card">
                   <img src={member.image} />
                   <div className="team-members-captions">

@@ -8,6 +8,7 @@ $navlink-color-hovered: #0c5adb;
   border-bottom: 1px solid #eee;
   box-shadow: 3px 3px 3px #eee;
   padding: 2rem 0;
+  border-bottom: 2px solid $main-color;
 
   .container-navbar {
     display: flex;

@@ -2,6 +2,7 @@ import { Button, Container } from "@mui/material";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import "./Topnav.scss";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 const Topnav = () => {
   return (
@@ -9,14 +10,22 @@ const Topnav = () => {
       <Container className="top-nav-container">
         <ul>
           <li>
-            <CallIcon /> <span>+880 013 143 206</span>
+            <div className="top-nav-icon">
+              <CallIcon />
+            </div>
+            <span>+880 013 143 206</span>
           </li>
           <li>
-            <EmailIcon /> <span>test@gmail.com</span>
+            <div className="top-nav-icon">
+              <EmailIcon />
+            </div>
+            <span>test@gmail.com</span>
           </li>
         </ul>
         <Button variant="outlined" className="contact-btn">
-          Contact Us Now
+          <span>
+            Contact Us Now <ArrowRightAltIcon />
+          </span>
         </Button>
       </Container>
     </div>

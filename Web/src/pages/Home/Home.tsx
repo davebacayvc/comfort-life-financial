@@ -211,7 +211,15 @@ const Home: React.FC = () => {
                   <Card
                     isMobileMode={isMobileMode}
                     content={{
-                      front: { title: service.title, icon: service.icon },
+                      front: {
+                        title: service.title,
+                        icon: (
+                          <img
+                            src="/assets/icons/money-plant-white.png"
+                            width={70}
+                          />
+                        ),
+                      },
                       back: {
                         title: service.title,
                         description: service.description,
