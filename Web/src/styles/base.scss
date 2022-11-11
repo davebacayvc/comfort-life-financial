@@ -1,5 +1,12 @@
 $color-red: #ed3e4b;
-$main-color: #7d26cd;
+// $main-color: #7d26cd;
+$main-color: #7114ef;
+$main-color-gradient: linear-gradient(
+  90deg,
+  #1475f7 0%,
+  $main-color 10%,
+  $main-color
+) !important;
 $smallDevice: 300px;
 $deviceMode: 900px;
 

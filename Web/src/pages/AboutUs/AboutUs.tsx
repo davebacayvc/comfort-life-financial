@@ -67,7 +67,7 @@ const AboutUs = () => {
             spacing={2}
           >
             {members.map((member) => (
-              <Grid item xs={6} sm={6} md={3} lg={3}>
+              <Grid item xs={6} md>
                 <div className="team-members-card">
                   <img src={member.image} />
                   <div className="team-members-captions">

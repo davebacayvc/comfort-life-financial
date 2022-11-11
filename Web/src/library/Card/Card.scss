@@ -57,6 +57,7 @@
 .flip-card-front {
   background-color: #fff;
   color: black;
+  border-top: 5px solid $main-color;
 
   h5 {
     margin-bottom: 1rem;

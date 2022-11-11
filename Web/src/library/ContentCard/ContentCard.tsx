@@ -25,7 +25,7 @@ const ContentCard: React.FC<ContentCardProps> = (props) => {
         <h1>{props.firstTitle}</h1>
         <h3>{props.secondTitle}</h3>
       </div>
-      <div className="divider" />
+      {/* <div className="divider" /> */}
       {props.icons && (
         <React.Fragment>
           {props.icons?.map((icon, index) => (
