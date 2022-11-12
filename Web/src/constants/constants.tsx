@@ -9,6 +9,7 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import InvalidRoute from "pages/InvalidRoute/InvalidRoute";
 import Portal from "pages/Portal/Portal";
+import Services from "pages/Services/Services";
 
 /* Web App Constant Images */
 export const IMAGES = {
@@ -49,6 +50,10 @@ export const REACT_ROUTES: ReactRoutesType[] = [
   {
     PATH: paths.portal,
     ELEMENT: <PageWrapper component={<Portal />} />,
+  },
+  {
+    PATH: paths.services,
+    ELEMENT: <PageWrapper component={<Services />} />,
   },
   {
     PATH: "*",
