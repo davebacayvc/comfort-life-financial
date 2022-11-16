@@ -4,8 +4,36 @@ import services from "data/services";
 import CardWithImage from "library/CardWithImage/CardWithImage";
 import ContactWithUs from "library/ContactWithUs/ContactWithUs";
 import HeaderTitle from "library/HeaderTitle/HeaderTitle";
+import React from "react";
 import WorkingSteps from "./components/WorkingSteps";
 import "./Services.scss";
+
+const workingSteps = [
+  {
+    title: "01",
+    subTitle: "Pick a Date",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+  },
+  {
+    title: "02",
+    subTitle: "Select a Time",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+  },
+  {
+    title: "03",
+    subTitle: "Submit Appointment",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+  },
+  {
+    title: "04",
+    subTitle: "Get in touch!",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+  },
+];
 
 const Services = () => {
   return (
@@ -42,7 +70,16 @@ const Services = () => {
         </div>
         <ContactWithUs />
       </Container>
-      <WorkingSteps />
+      <WorkingSteps
+        backgroundImage="/assets/others/event-1.png"
+        bigTitle={
+          <React.Fragment>
+            Some <span>easy steps</span> to process!
+          </React.Fragment>
+        }
+        title="WORKING STEPS"
+        steps={workingSteps}
+      />
     </div>
   );
 };

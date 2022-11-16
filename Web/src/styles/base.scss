@@ -10,6 +10,20 @@ $main-color-gradient: linear-gradient(
 $smallDevice: 300px;
 $deviceMode: 900px;
 
+/* Default Colors */
+$grey-50: #fafafc;
+$grey-100: #f6f6fa;
+$grey-200: #eaeaf2;
+$grey-250: #e1e1e6;
+$grey-300: #c4c4cd;
+$grey-400: #747480;
+$grey-450: #717171;
+$grey-500: #2e2e38;
+$grey-510: #2e2e3c;
+$grey-550: #23232f;
+$grey-600: #1a1a24;
+$grey-800: rgba(0, 0, 0, 0.05);
+
 *,
 *::after,
 *::before {

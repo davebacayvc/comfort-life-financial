@@ -13,6 +13,16 @@
   justify-content: center;
   text-align: center;
 
+  @media screen and (max-width: 900px) {
+    background-size: cover;
+    height: auto;
+    padding-top: 5rem;
+
+    .title {
+      margin-bottom: 0;
+    }
+  }
+
   .title {
     margin-bottom: 3rem;
     h5 {
@@ -35,7 +45,7 @@
     @media screen and (max-width: 900px) {
       background-size: cover;
       height: auto;
-      padding: 5rem 0;
+      padding: 3rem 0;
       p {
         font-size: 1.3rem;
         color: white;

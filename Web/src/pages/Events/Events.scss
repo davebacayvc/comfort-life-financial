@@ -1,0 +1,72 @@
+.event-content {
+  .banner {
+    margin-bottom: 0;
+  }
+
+  .working-steps {
+    padding: 6rem;
+    background-color: #eee;
+    height: auto;
+    .title {
+      h5 {
+        color: #333;
+      }
+      h1 {
+        color: #333;
+      }
+    }
+    .steps {
+      h1 {
+        color: #333;
+      }
+      h5 {
+        color: #333;
+      }
+      p {
+        color: #333;
+      }
+    }
+  }
+}
+.custom-dialog {
+  .custom-dialog-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    background-color: rgb(196, 228, 196);
+    padding: 1rem;
+    border-radius: 10px;
+
+    svg {
+      font-size: 3rem;
+      margin-right: 1rem;
+      path {
+        color: green;
+      }
+    }
+    span {
+      font-weight: 900;
+      font-size: 1.7rem;
+      text-transform: uppercase;
+    }
+  }
+  .copy-input {
+    margin-top: 2rem !important;
+
+    .MuiInputBase-root,
+    .MuiInputLabel-root,
+    .MuiFormControlLabel-root span {
+      font-size: 1.6rem;
+    }
+
+    .sent-email-instructions {
+      font-size: 1.3rem;
+      font-style: italic;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+  }
+}

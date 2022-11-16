@@ -20,7 +20,7 @@ type FormikData = {
   inquiryType: string;
 };
 
-interface ILabeledInput {
+export interface ILabeledInput {
   name: string;
   label: string;
   value: string;

@@ -10,6 +10,7 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import InvalidRoute from "pages/InvalidRoute/InvalidRoute";
 import Portal from "pages/Portal/Portal";
 import Services from "pages/Services/Services";
+import Events from "pages/Events/Events";
 
 /* Web App Constant Images */
 export const IMAGES = {
@@ -56,6 +57,10 @@ export const REACT_ROUTES: ReactRoutesType[] = [
     ELEMENT: <PageWrapper component={<Services />} />,
   },
   {
+    PATH: paths.events,
+    ELEMENT: <PageWrapper component={<Events />} />,
+  },
+  {
     PATH: "*",
     ELEMENT: (
       <PageWrapper
@@ -93,5 +98,32 @@ export const CONTACT_LIST = [
     NAME: "General Inquiry",
     VALUE: "comfortlife@test.com",
     icon: <AlternateEmailIcon />,
+  },
+];
+
+export const eventSteps = [
+  {
+    title: "01",
+    subTitle: "Pick a Event",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+  },
+  {
+    title: "02",
+    subTitle: "Submit a form",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+  },
+  {
+    title: "03",
+    subTitle: "Get the refence ID",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+  },
+  {
+    title: "04",
+    subTitle: "Get in touch!",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
   },
 ];

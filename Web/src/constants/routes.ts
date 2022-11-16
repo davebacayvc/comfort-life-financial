@@ -6,6 +6,7 @@ const paths = {
   contact: "/contact",
   about: "/about",
   invalid: "/invalid",
+  events: "/events",
 } as const;
 
 export default paths;
