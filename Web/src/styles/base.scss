@@ -63,3 +63,12 @@ pre {
   border-left: 3px solid $main-color;
   background: #fff !important;
 }
+
+@mixin center-vertically {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+}

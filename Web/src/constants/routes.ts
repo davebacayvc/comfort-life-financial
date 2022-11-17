@@ -7,6 +7,7 @@ const paths = {
   about: "/about",
   invalid: "/invalid",
   events: "/events",
+  event_invites: "/events/invites/:id",
 } as const;
 
 export default paths;

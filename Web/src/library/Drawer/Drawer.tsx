@@ -4,7 +4,6 @@ import React, {
   useRef,
   useEffect,
   useCallback,
-  useState,
 } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import "./Drawer.scss";
@@ -61,13 +60,10 @@ const DrawerBase: FunctionComponent<DrawerBaseProps> = (
     closeButtonLabel,
     ...otherProps
   } = props;
-  const announceRef = useRef<any>(null);
-  const [announceText, setAnnounceText] = useState("");
   const closeButtonEl = useRef<HTMLButtonElement>(null);
   const contentContainerRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
   const isOpen = props.open;
-  const customAriaLive = props.customAriaLive;
 
   const handleResize = useCallback((event: any) => {
     if (contentContainerRef.current) {
@@ -82,10 +78,6 @@ const DrawerBase: FunctionComponent<DrawerBaseProps> = (
     // shift focus to first interactive element after mount
     const timeout = setTimeout(() => {
       if (isOpen) {
-        const announceEl = announceRef.current;
-        if (announceEl) {
-          setAnnounceText(`${ariaTitle ?? title} opened`);
-        }
         handleResize(undefined);
         closeButtonEl?.current?.focus();
       }
@@ -105,14 +97,6 @@ const DrawerBase: FunctionComponent<DrawerBaseProps> = (
       activeElement.hasAttribute("aria-activedescendant")
     ) {
       return;
-    }
-
-    const announceEl = announceRef.current;
-    if (announceEl) {
-      setAnnounceText(`${ariaTitle ?? title} closed`);
-      setTimeout(() => {
-        setAnnounceText("");
-      }, 500);
     }
     onClose();
   };

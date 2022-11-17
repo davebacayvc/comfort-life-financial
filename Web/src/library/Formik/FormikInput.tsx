@@ -36,6 +36,8 @@ const FormikTextInput: React.FC<IFormikTextInput> = (props) => {
         variant="filled"
         fullWidth
         className="filled-input"
+        multiline={props.isTextArea}
+        rows={props.isTextArea ? 4 : 0}
       />
     </React.Fragment>
   );

@@ -11,6 +11,9 @@ import InvalidRoute from "pages/InvalidRoute/InvalidRoute";
 import Portal from "pages/Portal/Portal";
 import Services from "pages/Services/Services";
 import Events from "pages/Events/Events";
+import EventInvites from "pages/EventInvites/EventInvites";
+
+export const MAIN_LOCALHOST = "http://localhost:3000";
 
 /* Web App Constant Images */
 export const IMAGES = {
@@ -59,6 +62,10 @@ export const REACT_ROUTES: ReactRoutesType[] = [
   {
     PATH: paths.events,
     ELEMENT: <PageWrapper component={<Events />} />,
+  },
+  {
+    PATH: paths.event_invites,
+    ELEMENT: <PageWrapper component={<EventInvites />} />,
   },
   {
     PATH: "*",

@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import EventCard from "./components/EventCard";
 import "./Events.scss";
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -16,17 +15,20 @@ import {
   TextField,
 } from "@mui/material";
 import { CheckCircle, ContentCopy } from "@mui/icons-material";
+import Button from "library/Button/Button";
 
 const Events = () => {
-  const [showDialog, setShowDialog] = useState(true);
-  const [clipboardValue, setClipboardValue] = useState(
-    "https://localhost:3000/invites/145SGDS"
-  );
+  const [showDialog, setShowDialog] = useState(false);
+  const [clipboardValue, setClipboardValue] = useState("");
   return (
     <div className="event-content">
       <Banner bigTitle="Events" title="See latest updates" hasBorder />
       {events.map((event, i) => (
-        <EventCard {...event} />
+        <EventCard
+          {...event}
+          setShowDialog={setShowDialog}
+          setClipboardValue={setClipboardValue}
+        />
       ))}
       <WorkingSteps
         bigTitle={
@@ -80,7 +82,9 @@ const Events = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowDialog(false)}>Close</Button>
+          <Button onClick={() => setShowDialog(false)} variation="light">
+            CLOSE
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

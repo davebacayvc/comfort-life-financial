@@ -1,33 +1,17 @@
-import classNames from "classnames";
-import Button from "library/Button/Button";
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
-import "./EventCard.scss";
 import { Grid } from "@mui/material";
-import DrawerBase, { Anchor } from "library/Drawer/Drawer";
+import React, { Dispatch, SetStateAction, useRef } from "react";
+import "./EventForm.scss";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import FormikTextInput from "library/Formik/FormikInput";
 import Promt from "library/Prompt/Promt";
 import Spinner from "library/Spinner/Spinner";
-import Toast from "library/Toast/Toast";
 import { ILabeledInput } from "pages/Contact/components/Form/Form";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import generateRandomChars from "helpers/generateRandomChars";
 import { MAIN_LOCALHOST } from "constants/constants";
 import paths from "constants/routes";
-
-export type EventCardVariant = "light" | "dark";
-
-interface IEventCard {
-  image: string;
-  title: string;
-  description: string;
-  date: string;
-  id: string;
-  variant: EventCardVariant;
-  setShowDialog: Dispatch<SetStateAction<any>>;
-  setClipboardValue: Dispatch<SetStateAction<any>>;
-}
+import Button from "library/Button/Button";
 
 type EventValues = {
   fullName: string;
@@ -38,15 +22,17 @@ type EventValues = {
   remarks: string;
 };
 
-const EventCard: React.FC<IEventCard> = (props) => {
+type EventFormProps = {
+  setClipboardValue: Dispatch<SetStateAction<any>>;
+  setShowDialog: Dispatch<SetStateAction<any>>;
+  image: string;
+  title: string;
+  description: string;
+  date: string | Date;
+  id: string;
+};
+const EventForm: React.FC<EventFormProps> = (props) => {
   const form = useRef<any>();
-  const [showDrawer, setShowDrawer] = useState(false);
-  const eventCardCn = classNames("event-card", {
-    "event-card-light": props.variant === "light",
-    "event-card-dark": props.variant === "dark",
-  });
-
-  const [showToast, setShowToast] = useState(false);
   const initialValues: EventValues = {
     fullName: "",
     mobileNumber: "",
@@ -64,21 +50,7 @@ const EventCard: React.FC<IEventCard> = (props) => {
     mobileNumber: Yup.string().required("Mobile Number field is required."),
   });
   return (
-    <React.Fragment>
-      <div
-        style={{ backgroundImage: `url(${props.image})` }}
-        className={eventCardCn}
-      >
-        <div className="event-card-content">
-          <div className="date-wrapper">
-            <CalendarTodayIcon /> {props.date}
-          </div>
-          <h1>{props.title}</h1>
-          <p>{props.description}</p>
-          <Button onClick={() => setShowDrawer(true)}>BOOK NOW</Button>
-        </div>
-      </div>
-
+    <div className="event-form-container">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -88,7 +60,6 @@ const EventCard: React.FC<IEventCard> = (props) => {
             console.log(data);
             setSubmitting(false);
             resetForm();
-            setShowDrawer(false);
             props.setClipboardValue(
               `${MAIN_LOCALHOST}${paths.event_invites.replace(
                 ":id",
@@ -168,70 +139,39 @@ const EventCard: React.FC<IEventCard> = (props) => {
             handleSubmit();
           };
           return (
-            <DrawerBase
-              anchor={Anchor.Right}
-              onClose={() => setShowDrawer(false)}
-              open={showDrawer}
-              title="BOOK EVENT"
-              footer={
-                <React.Fragment>
-                  <Button
-                    onClick={() => setShowDrawer(false)}
-                    disabled={isSubmitting}
-                    variation="light"
-                  >
-                    CANCEL
-                  </Button>
-                  <Button
-                    onClick={() => onSubmitHandler()}
-                    disabled={isSubmitting}
-                    variation="dark"
-                  >
-                    BOOK NOW
-                  </Button>
-                </React.Fragment>
-              }
-            >
-              <div>
-                <img src={props.image} alt="event-1" width="100%" />
-                <div className="event-captions">
-                  <div className="date-wrapper">
-                    <CalendarTodayIcon /> {props.date}
-                  </div>
-                  <h2>{props.title}</h2>
-                  <p>{props.description}</p>
-                </div>
-                <div className="form-instructions">
-                  <h2>FILLUP FORM</h2>
-                  <p>(*) fields are required.</p>
-                </div>
-
-                <form onSubmit={handleSubmit} className="form" ref={form}>
-                  <Grid container spacing={2}>
-                    {labeledInput.map((data, index) => (
-                      <Grid item {...{ ...data.colDef }} key={index}>
-                        <FormikTextInput
-                          label={data.label}
-                          variant="filled"
-                          fullWidth
-                          className="filled-input"
-                          name={data.name}
-                          isTextArea={data.isTextArea}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                  <Promt isDirty={dirty} />
-                  <Spinner isVisible={isSubmitting} />
-                  <Toast setter={setShowToast} isVisible={showToast} />
-                </form>
+            <div>
+              <div className="form-instructions">
+                <h2>FILLUP FORM</h2>
+                <p>(*) fields are required.</p>
               </div>
-            </DrawerBase>
+
+              <form onSubmit={handleSubmit} className="form" ref={form}>
+                <Grid container spacing={2}>
+                  {labeledInput.map((data, index) => (
+                    <Grid item {...{ ...data.colDef }} key={index}>
+                      <FormikTextInput
+                        label={data.label}
+                        variant="filled"
+                        fullWidth
+                        className="filled-input"
+                        name={data.name}
+                        isTextArea={data.isTextArea}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+                <Promt isDirty={dirty} />
+                <Spinner isVisible={isSubmitting} />
+                <Button variation="dark" type="submit">
+                  Submit
+                </Button>
+              </form>
+            </div>
           );
         }}
       </Formik>
-    </React.Fragment>
+    </div>
   );
 };
 
-export default EventCard;
+export default EventForm;
