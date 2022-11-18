@@ -29,6 +29,7 @@ export interface ILabeledInput {
     md: number;
     lg: number;
   };
+  disabled?: boolean;
   isTextArea?: boolean;
 }
 const Form = () => {

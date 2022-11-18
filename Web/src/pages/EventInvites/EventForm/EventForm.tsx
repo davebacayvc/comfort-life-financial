@@ -30,6 +30,7 @@ type EventFormProps = {
   description: string;
   date: string | Date;
   id: string;
+  invitee: string;
 };
 const EventForm: React.FC<EventFormProps> = (props) => {
   const form = useRef<any>();
@@ -38,7 +39,7 @@ const EventForm: React.FC<EventFormProps> = (props) => {
     mobileNumber: "",
     emailAddress: "",
     agentNumber: "",
-    invitee: "",
+    invitee: "asdasd",
     remarks: "",
   };
 
@@ -63,8 +64,8 @@ const EventForm: React.FC<EventFormProps> = (props) => {
             props.setClipboardValue(
               `${MAIN_LOCALHOST}${paths.event_invites.replace(
                 ":id",
-                props.id
-              )}?ref=${generateRandomChars(7)}`
+                generateRandomChars(7)
+              )}`
             );
             props.setShowDialog(true);
           }, 3000);
@@ -121,6 +122,7 @@ const EventForm: React.FC<EventFormProps> = (props) => {
                 md: 6,
                 lg: 12,
               },
+              disabled: true,
             },
             {
               name: "remarks",
@@ -156,6 +158,8 @@ const EventForm: React.FC<EventFormProps> = (props) => {
                         className="filled-input"
                         name={data.name}
                         isTextArea={data.isTextArea}
+                        disabled={data.disabled}
+                        value={data.disabled ? props.invitee : ""}
                       />
                     </Grid>
                   ))}

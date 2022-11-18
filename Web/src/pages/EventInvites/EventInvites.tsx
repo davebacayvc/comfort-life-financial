@@ -17,13 +17,17 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EventForm from "./EventForm/EventForm";
 import { CheckCircle, ContentCopy } from "@mui/icons-material";
 import Button from "library/Button/Button";
+import eventInvite from "data/eventInvite";
 
 const EventInvites: React.FC = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [clipboardValue, setClipboardValue] = useState("");
   const { id } = useParams();
 
-  const event = events.find((x) => x.id === id);
+  const { eventId, invitee } =
+    eventInvite.find((x) => x.referenceId === id) ?? {};
+  const { date, title, image, description } =
+    events.find((x) => x.id === eventId) ?? {};
 
   return (
     <div className="event-invites">
@@ -32,20 +36,21 @@ const EventInvites: React.FC = () => {
         <Container>
           <div className="event-description">
             <div className="date-wrapper">
-              <CalendarTodayIcon /> {event?.date}
+              <CalendarTodayIcon /> {date}
             </div>
-            <h1>{event?.title}</h1>
-            <img src={event?.image} alt={event?.title} />
-            <p>{event?.description}</p>
+            <h1>{title}</h1>
+            <img src={image} alt={title} />
+            <p>{description}</p>
           </div>
           <EventForm
-            date={event?.date ?? ""}
-            description={event?.description ?? ""}
-            id={event?.id ?? ""}
-            image={event?.image ?? ""}
+            date={date ?? ""}
+            description={description ?? ""}
+            id={id ?? ""}
+            image={image ?? ""}
             setClipboardValue={setClipboardValue}
             setShowDialog={setShowDialog}
-            title={event?.title ?? ""}
+            title={title ?? ""}
+            invitee={invitee ?? ""}
           />
           <Dialog
             open={showDialog}

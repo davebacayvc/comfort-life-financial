@@ -23,6 +23,11 @@ const FormikTextInput: React.FC<IFormikTextInput> = (props) => {
     helper.setValue(newValue);
   }, [props?.value]);
 
+  const clonedProps = {
+    ...props,
+  };
+
+  delete clonedProps.isTextArea;
   return (
     <React.Fragment>
       <TextField

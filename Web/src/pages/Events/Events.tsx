@@ -24,11 +24,13 @@ const Events = () => {
     <div className="event-content">
       <Banner bigTitle="Events" title="See latest updates" hasBorder />
       {events.map((event, i) => (
-        <EventCard
-          {...event}
-          setShowDialog={setShowDialog}
-          setClipboardValue={setClipboardValue}
-        />
+        <React.Fragment key={i}>
+          <EventCard
+            {...event}
+            setShowDialog={setShowDialog}
+            setClipboardValue={setClipboardValue}
+          />
+        </React.Fragment>
       ))}
       <WorkingSteps
         bigTitle={
@@ -53,33 +55,31 @@ const Events = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText className="event-dialog-content">
-            <p>
-              Share read-only reference ID link to invite an audience or friends
-              in this event.
-            </p>
-            <div className="copy-input">
-              <TextField
-                label="Reference ID"
-                value={clipboardValue}
-                fullWidth
-                disabled
-                InputProps={{
-                  endAdornment: (
-                    <IconButton
-                      onClick={() =>
-                        navigator.clipboard.writeText(clipboardValue)
-                      }
-                    >
-                      <ContentCopy />
-                    </IconButton>
-                  ),
-                }}
-              />
-              <p className="sent-email-instructions">
-                This link has also sent to your email
-              </p>
-            </div>
+            Share read-only reference ID link to invite an audience or friends
+            in this event.
           </DialogContentText>
+          <div className="copy-input">
+            <TextField
+              label="Reference ID"
+              value={clipboardValue}
+              fullWidth
+              disabled
+              InputProps={{
+                endAdornment: (
+                  <IconButton
+                    onClick={() =>
+                      navigator.clipboard.writeText(clipboardValue)
+                    }
+                  >
+                    <ContentCopy />
+                  </IconButton>
+                ),
+              }}
+            />
+            <p className="sent-email-instructions">
+              This link has also sent to your email
+            </p>
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShowDialog(false)} variation="light">

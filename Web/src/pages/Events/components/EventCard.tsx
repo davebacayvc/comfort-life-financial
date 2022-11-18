@@ -92,8 +92,8 @@ const EventCard: React.FC<IEventCard> = (props) => {
             props.setClipboardValue(
               `${MAIN_LOCALHOST}${paths.event_invites.replace(
                 ":id",
-                props.id
-              )}?ref=${generateRandomChars(7)}`
+                generateRandomChars(7).toUpperCase()
+              )}`
             );
             props.setShowDialog(true);
           }, 3000);

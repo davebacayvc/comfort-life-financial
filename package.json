@@ -1,0 +1,27 @@
+{
+  "name": "comfort-life-financial",
+  "version": "1.0.0",
+  "description": "- TBD",
+  "main": "server.js",
+  "scripts": {
+    "start": "node Server/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davebacayvc/comfort-life-financial.git"
+  },
+  "keywords": [
+    "Comfort",
+    "Life",
+    "Financial"
+  ],
+  "author": "Dave Bacay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davebacayvc/comfort-life-financial/issues"
+  },
+  "homepage": "https://github.com/davebacayvc/comfort-life-financial#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
