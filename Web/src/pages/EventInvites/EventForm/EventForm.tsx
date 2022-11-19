@@ -39,7 +39,7 @@ const EventForm: React.FC<EventFormProps> = (props) => {
     mobileNumber: "",
     emailAddress: "",
     agentNumber: "",
-    invitee: "asdasd",
+    invitee: "",
     remarks: "",
   };
 
@@ -64,7 +64,7 @@ const EventForm: React.FC<EventFormProps> = (props) => {
             props.setClipboardValue(
               `${MAIN_LOCALHOST}${paths.event_invites.replace(
                 ":id",
-                generateRandomChars(7)
+                "D3ZIMFU"
               )}`
             );
             props.setShowDialog(true);

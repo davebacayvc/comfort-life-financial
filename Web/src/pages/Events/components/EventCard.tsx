@@ -92,7 +92,7 @@ const EventCard: React.FC<IEventCard> = (props) => {
             props.setClipboardValue(
               `${MAIN_LOCALHOST}${paths.event_invites.replace(
                 ":id",
-                generateRandomChars(7).toUpperCase()
+                "D3ZIMFU"
               )}`
             );
             props.setShowDialog(true);

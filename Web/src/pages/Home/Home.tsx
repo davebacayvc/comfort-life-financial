@@ -147,14 +147,20 @@ const Home: React.FC = () => {
               <h5>Welcome to Comfort Life Financial</h5>
               <h1>We are creative financial for your life.</h1>
             </div>
-            <img src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png" />
+            <img
+              src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png"
+              alt="slider"
+            />
           </div>
           <div>
             <div className={sliderCaptionClassnames}>
               <h5>Welcome to Comfort Life Financial</h5>
               <h1>We are creative financial for your life.</h1>
             </div>
-            <img src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png" />
+            <img
+              src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png"
+              alt="slider"
+            />
           </div>
         </AwesomeSlider>
       </div>
@@ -217,6 +223,7 @@ const Home: React.FC = () => {
                           <img
                             src="/assets/icons/money-plant-white.png"
                             width={70}
+                            alt="services-plant"
                           />
                         ),
                       },

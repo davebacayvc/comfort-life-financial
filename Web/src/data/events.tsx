@@ -1,6 +1,6 @@
 import { EventCardVariant } from "pages/Events/components/EventCard";
 
-type Events = {
+export type EventsType = {
   title: string;
   date: string;
   description: string;
@@ -9,7 +9,21 @@ type Events = {
   image: string;
   variant: EventCardVariant;
 };
-const events: Events[] = [
+
+export type EventInvite = {
+  id: string;
+  date: string | Date;
+  eventId: string;
+  invitee: string;
+  referenceId: string;
+  title: string;
+  description: string;
+  event_date: string | Date;
+  image: string;
+  variant: EventCardVariant;
+};
+
+const events: EventsType[] = [
   {
     title: "Christmas Party 1",
     date: "January 21, 2022",

@@ -1,8 +1,8 @@
 import { eventSteps } from "constants/constants";
-import events from "data/events";
+import { EventsType } from "data/events";
 import Banner from "library/Banner/Banner";
 import WorkingSteps from "pages/Services/components/WorkingSteps";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventCard from "./components/EventCard";
 import "./Events.scss";
 import {
@@ -16,14 +16,26 @@ import {
 } from "@mui/material";
 import { CheckCircle, ContentCopy } from "@mui/icons-material";
 import Button from "library/Button/Button";
+import axios from "axios";
+import ENDPOINTS from "constants/endpoints";
 
-const Events = () => {
+const Events: React.FC = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [clipboardValue, setClipboardValue] = useState("");
+  const [eventsData, setEventsData] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const { data } = await axios.get(ENDPOINTS.EVENTS);
+      setEventsData(data);
+    };
+
+    fetchEvents();
+  }, []);
   return (
     <div className="event-content">
       <Banner bigTitle="Events" title="See latest updates" hasBorder />
-      {events.map((event, i) => (
+      {eventsData.map((event: EventsType, i: number) => (
         <React.Fragment key={i}>
           <EventCard
             {...event}
