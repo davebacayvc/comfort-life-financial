@@ -12,6 +12,7 @@ import Portal from "pages/Portal/Portal";
 import Services from "pages/Services/Services";
 import Events from "pages/Events/Events";
 import EventInvites from "pages/EventInvites/EventInvites";
+import adminRoutes from "pages/Admin/routes";
 
 export const MAIN_LOCALHOST = "http://localhost:3000";
 
@@ -19,6 +20,7 @@ export const MAIN_LOCALHOST = "http://localhost:3000";
 export const IMAGES = {
   COMPANY_LOGOS: {
     MAIN: "/assets/logos/comfort-life-financial-main-logo.png",
+    NEW: "/assets/logos/comfort-life-new-logo.png",
   },
   ICONS: {
     THINKING: "/assets/icons/thinking-icon.png",
@@ -29,6 +31,7 @@ export const VIDEO_FINANCING = "/assets/video/coming-soon-video.mp4";
 export const COMPANY_NAME = "Comfort Life Financial";
 
 export const REACT_ROUTES: ReactRoutesType[] = [
+  ...adminRoutes,
   {
     PATH: paths.index,
     ELEMENT: (

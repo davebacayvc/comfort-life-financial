@@ -9,46 +9,39 @@ import {
   TextField,
 } from "@mui/material";
 import Banner from "library/Banner/Banner";
-import React, { ReactNode, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./EventInvites.scss";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import EventForm from "./EventForm/EventForm";
 import { CheckCircle, ContentCopy } from "@mui/icons-material";
 import Button from "library/Button/Button";
-import axios from "axios";
-import ENDPOINTS from "constants/endpoints";
-import { EventInvite } from "data/events";
+import { useDispatch, useSelector } from "react-redux";
+import { listEventInviteDetails } from "redux/actions/eventActions";
+import Spinner from "library/Spinner/Spinner";
 
 const EventInvites: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const eventInviteDetails = useSelector(
+    (state: any) => state.eventInviteDetails
+  );
+  const { loading, event, error } = eventInviteDetails;
   const [showDialog, setShowDialog] = useState(false);
   const [clipboardValue, setClipboardValue] = useState("");
   const { id } = useParams();
-  const [event, setEvent] = useState<EventInvite>({
-    id: "",
-    date: "",
-    eventId: "",
-    invitee: "",
-    referenceId: "",
-    title: "",
-    description: "",
-    event_date: "",
-    image: "",
-    variant: "dark",
-  });
 
   useEffect(() => {
-    const fetchEvent = async () => {
-      const { data } = await axios.get(
-        ENDPOINTS.EVENT_SINGLE.replace(":id", id?.toString() ?? "")
-      );
-      setEvent(data);
-    };
+    dispatch(listEventInviteDetails(id as any) as any);
+  }, [id, dispatch]);
 
-    fetchEvent();
-  }, [id]);
+  if (error) {
+    navigate("/invalid");
+  }
 
-  const { date, title, image, description, invitee } = event;
+  if (loading) {
+    return <Spinner isVisible={true} />;
+  }
 
   return (
     <div className="event-invites">
@@ -57,21 +50,21 @@ const EventInvites: React.FC = () => {
         <Container>
           <div className="event-description">
             <div className="date-wrapper">
-              <CalendarTodayIcon /> <div>{date as ReactNode}</div>
+              <CalendarTodayIcon /> <div>{event.date}</div>
             </div>
-            <h1>{title}</h1>
-            <img src={image} alt={title} />
-            <p>{description}</p>
+            <h1>{event.title}</h1>
+            <img src={event.image} alt={event.title} />
+            <p>{event.description}</p>
           </div>
           <EventForm
-            date={date ?? ""}
-            description={description ?? ""}
+            date={event.date ?? ""}
+            description={event.description ?? ""}
             id={id ?? ""}
-            image={image ?? ""}
+            image={event.image ?? ""}
             setClipboardValue={setClipboardValue}
             setShowDialog={setShowDialog}
-            title={title ?? ""}
-            invitee={invitee ?? ""}
+            title={event.title ?? ""}
+            invitee={event.invitee ?? ""}
           />
           <Dialog
             open={showDialog}

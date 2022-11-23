@@ -16,26 +16,33 @@ import {
 } from "@mui/material";
 import { CheckCircle, ContentCopy } from "@mui/icons-material";
 import Button from "library/Button/Button";
-import axios from "axios";
-import ENDPOINTS from "constants/endpoints";
+import { useSelector, useDispatch } from "react-redux";
+import { listEvents } from "redux/actions/eventActions";
+import { useNavigate } from "react-router-dom";
+import Spinner from "library/Spinner/Spinner";
+import paths from "constants/routes";
 
 const Events: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [clipboardValue, setClipboardValue] = useState("");
-  const [eventsData, setEventsData] = useState([]);
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      const { data } = await axios.get(ENDPOINTS.EVENTS);
-      setEventsData(data);
-    };
+    dispatch(listEvents() as any);
+  }, [dispatch]);
 
-    fetchEvents();
-  }, []);
+  const eventList = useSelector((state: any) => state.eventList);
+  const { loading, error, events } = eventList;
+
+  if (error) {
+    navigate(paths.invalid);
+  }
+
   return (
     <div className="event-content">
       <Banner bigTitle="Events" title="See latest updates" hasBorder />
-      {eventsData.map((event: EventsType, i: number) => (
+      {events.map((event: EventsType, i: number) => (
         <React.Fragment key={i}>
           <EventCard
             {...event}
@@ -99,6 +106,7 @@ const Events: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Spinner isVisible={loading} />
     </div>
   );
 };

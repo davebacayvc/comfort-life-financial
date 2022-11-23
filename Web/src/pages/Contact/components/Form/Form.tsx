@@ -31,6 +31,7 @@ export interface ILabeledInput {
   };
   disabled?: boolean;
   isTextArea?: boolean;
+  type?: string;
 }
 const Form = () => {
   const [showToast, setShowToast] = useState(false);
@@ -241,7 +242,6 @@ const Form = () => {
                   SUBMIT
                 </Button>
               </Grid>
-              <Promt isDirty={dirty} />
               <Spinner isVisible={isSubmitting} />
               <Toast setter={setShowToast} isVisible={showToast} />
             </form>
