@@ -1,10 +1,10 @@
 $color-red: #ed3e4b;
 // $main-color: #7d26cd;
-$main-color: rgb(113, 20, 239);
+$main-color: #021025;
 $main-color-gradient: linear-gradient(
   90deg,
-  #1475f7 0%,
-  $main-color 10%,
+  #0057b7 0%,
+  $main-color 30%,
   $main-color
 ) !important;
 $main-color-new: #0057b7;
@@ -65,6 +65,10 @@ pre {
 .MuiPaper-elevation {
   border-left: 3px solid $main-color;
   background: #fff !important;
+}
+
+.loading-text {
+  text-align: center;
 }
 
 @mixin center-vertically {

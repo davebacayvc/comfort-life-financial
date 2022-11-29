@@ -4,7 +4,7 @@ import "./Button.scss";
 import classNames from "classnames";
 
 type ButtonDefaultProps = ButtonProps & {
-  children: string;
+  children: string | JSX.Element | React.ReactNode;
   onClick?: () => void;
   className?: string;
   variation?: "dark" | "light" | "main";

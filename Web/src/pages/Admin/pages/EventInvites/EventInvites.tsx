@@ -1,20 +1,36 @@
-import { Button } from "@mui/material";
 import Table from "pages/Admin/components/Table/Table";
 import Title from "pages/Admin/components/Title/Title";
-import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteEventInvite,
+  listEventInvites,
+} from "redux/actions/eventActions";
 import "./EventInvites.scss";
+import checkBlankValue from "helpers/checkBlankValue";
+import { Button } from "@mui/material";
 
 const EventInvites = () => {
-  const actionButtons = (
-    <div className="action-buttons">
-      <Button variant="outlined" size="small">
-        View
-      </Button>
-      <Button variant="outlined" size="small" color="error">
-        Delete
-      </Button>
-    </div>
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listEventInvites() as any);
+  }, [dispatch]);
+
+  const eventInvitesList = useSelector((state: any) => state.eventInvitesList);
+  const { loading, eventInvites } = eventInvitesList;
+  const eventInvitesDelete: any = useSelector(
+    (state: any) => state.eventInvitesDelete
   );
+
+  const { loading: deleteLoading } = eventInvitesDelete;
+
+  const deleteHandler = (id: string) => {
+    if (window.confirm("Are you sure you want to delete this data?")) {
+      dispatch(deleteEventInvite(id) as any);
+    }
+  };
   const tableDefs = {
     columns: [
       {
@@ -36,8 +52,8 @@ const EventInvites = () => {
         align: "left",
       },
       {
-        id: "mobileNumber",
-        label: "Mobile Number",
+        id: "invitedBy",
+        label: "Invited By",
         minWidth: 80,
         align: "left",
       },
@@ -55,24 +71,36 @@ const EventInvites = () => {
       },
     ],
 
-    rows: [
-      {
-        refId: "refId",
-        eventName: "event name",
-        clientName: "client name",
-        mobileNumber: "mobile Number",
-        emailAddress: "emailAddress",
-        actions: actionButtons,
-      },
-      {
-        refId: "refId",
-        eventName: "event name",
-        clientName: "client name",
-        mobileNumber: "mobile Number",
-        emailAddress: "emailAddress",
-        actions: actionButtons,
-      },
-    ],
+    rows: eventInvites?.map((invite: any) => {
+      return {
+        refId: invite.referenceId,
+        eventName: invite.eventsData[0].title,
+        clientName: invite.fullName,
+        invitedBy: checkBlankValue(invite.invitee),
+        emailAddress: checkBlankValue(invite.emailAddress),
+        mobileNumber: checkBlankValue(invite.mobileNumber),
+        id: checkBlankValue(invite._id),
+        actions: (
+          <div className="action-buttons">
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={() => deleteHandler(invite.referenceId)}
+            >
+              View
+            </Button>
+            <Button
+              variant="outlined"
+              size="small"
+              color="error"
+              onClick={() => deleteHandler(invite.referenceId)}
+            >
+              Delete
+            </Button>
+          </div>
+        ),
+      };
+    }),
   };
 
   return (
@@ -81,7 +109,11 @@ const EventInvites = () => {
         title="Event Invites"
         subtitle="Lorem Ipsum is simply dummy text of the printing"
       />
-      <Table columns={tableDefs.columns} rows={tableDefs.rows} />
+      <Table
+        columns={tableDefs.columns}
+        rows={tableDefs.rows}
+        loading={loading || deleteLoading}
+      />
     </div>
   );
 };

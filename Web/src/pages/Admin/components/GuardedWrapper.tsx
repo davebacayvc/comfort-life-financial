@@ -95,7 +95,6 @@ const GuardedWrapper: React.FC<GuardedWrapperProps> = (props) => {
             }}
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
             <MenuItem onClick={logoutHandler}>Logout</MenuItem>
           </Menu>
         </div>

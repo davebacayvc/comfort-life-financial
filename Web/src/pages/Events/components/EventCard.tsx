@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Button from "library/Button/Button";
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import "./EventCard.scss";
-import { Grid } from "@mui/material";
+import { Autocomplete, Grid } from "@mui/material";
 import DrawerBase, { Anchor } from "library/Drawer/Drawer";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -15,6 +15,11 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import generateRandomChars from "helpers/generateRandomChars";
 import { MAIN_LOCALHOST } from "constants/constants";
 import paths from "constants/routes";
+import { submitInvite } from "redux/actions/eventActions";
+import { useDispatch, useSelector } from "react-redux";
+import { enforceFormat, formatToPhone } from "helpers/mobileNumberFormatter";
+import { agents } from "data/agents";
+import { formatDate } from "helpers/dateFormatter";
 
 export type EventCardVariant = "light" | "dark";
 
@@ -22,11 +27,13 @@ interface IEventCard {
   image: string;
   title: string;
   description: string;
-  date: string;
+  createdAt: Date;
   id: string;
   variant: EventCardVariant;
+  ticket?: string;
   setShowDialog: Dispatch<SetStateAction<any>>;
   setClipboardValue: Dispatch<SetStateAction<any>>;
+  setTicket: Dispatch<SetStateAction<any>>;
 }
 
 type EventValues = {
@@ -40,6 +47,10 @@ type EventValues = {
 
 const EventCard: React.FC<IEventCard> = (props) => {
   const form = useRef<any>();
+  const dispatch = useDispatch();
+  const eventInvitesList = useSelector((state: any) => state?.eventInvitesList);
+  const { loading, error } = eventInvitesList;
+
   const [showDrawer, setShowDrawer] = useState(false);
   const eventCardCn = classNames("event-card", {
     "event-card-light": props.variant === "light",
@@ -71,7 +82,8 @@ const EventCard: React.FC<IEventCard> = (props) => {
       >
         <div className="event-card-content">
           <div className="date-wrapper">
-            <CalendarTodayIcon /> {props.date}
+            <CalendarTodayIcon />
+            {formatDate(props.createdAt, "fullFormat")}
           </div>
           <h1>{props.title}</h1>
           <p>{props.description}</p>
@@ -84,22 +96,35 @@ const EventCard: React.FC<IEventCard> = (props) => {
         validationSchema={validationSchema}
         onSubmit={(data: EventValues, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          setTimeout(() => {
-            console.log(data);
-            setSubmitting(false);
-            resetForm();
-            setShowDrawer(false);
-            props.setClipboardValue(
-              `${MAIN_LOCALHOST}${paths.event_invites.replace(
-                ":id",
-                "D3ZIMFU"
-              )}`
-            );
-            props.setShowDialog(true);
-          }, 3000);
+          const referenceId = generateRandomChars(6);
+          console.log(data);
+          setSubmitting(false);
+          resetForm();
+          setShowDrawer(false);
+          dispatch(
+            submitInvite(
+              referenceId,
+              props.id,
+              new Date().toString(),
+              data.fullName,
+              data.mobileNumber,
+              data.emailAddress,
+              data.agentNumber,
+              data.invitee,
+              data.remarks
+            ) as any
+          );
+          props.setClipboardValue(
+            `${MAIN_LOCALHOST}${paths.event_invites.replace(
+              ":id",
+              referenceId
+            )}`
+          );
+          props.setTicket(props.ticket);
+          props.setShowDialog(true);
         }}
       >
-        {({ values, handleSubmit, dirty, isSubmitting }) => {
+        {({ values, handleSubmit, dirty, isSubmitting, setFieldValue }) => {
           const labeledInput: ILabeledInput[] = [
             {
               name: "fullName",
@@ -113,7 +138,7 @@ const EventCard: React.FC<IEventCard> = (props) => {
             },
             {
               name: "mobileNumber",
-              label: "Mobile Number *",
+              label: "Mobile Number (+1) *",
               value: values.mobileNumber,
               colDef: {
                 xs: 12,
@@ -150,6 +175,7 @@ const EventCard: React.FC<IEventCard> = (props) => {
                 md: 6,
                 lg: 12,
               },
+              isAutoComplete: true,
             },
             {
               name: "remarks",
@@ -157,7 +183,7 @@ const EventCard: React.FC<IEventCard> = (props) => {
               value: values.remarks,
               colDef: {
                 xs: 12,
-                md: 6,
+                md: 12,
                 lg: 12,
               },
               isTextArea: true,
@@ -193,10 +219,11 @@ const EventCard: React.FC<IEventCard> = (props) => {
               }
             >
               <div>
-                <img src={props.image} alt="event-1" width="100%" />
+                {/* <img src={props.image} alt="event-1" width="100%" /> */}
                 <div className="event-captions">
                   <div className="date-wrapper">
-                    <CalendarTodayIcon /> {props.date}
+                    <CalendarTodayIcon />{" "}
+                    {formatDate(props.createdAt, "fullFormat")}
                   </div>
                   <h2>{props.title}</h2>
                   <p>{props.description}</p>
@@ -208,22 +235,78 @@ const EventCard: React.FC<IEventCard> = (props) => {
 
                 <form onSubmit={handleSubmit} className="form" ref={form}>
                   <Grid container spacing={2}>
-                    {labeledInput.map((data, index) => (
-                      <Grid item {...{ ...data.colDef }} key={index}>
-                        <FormikTextInput
-                          label={data.label}
-                          variant="filled"
-                          fullWidth
-                          className="filled-input"
-                          name={data.name}
-                          isTextArea={data.isTextArea}
-                        />
-                      </Grid>
-                    ))}
+                    {labeledInput.map((data, index) => {
+                      const withAutoComplete = (
+                        <Grid item {...{ ...data.colDef }} key={index}>
+                          <Autocomplete
+                            options={agents}
+                            getOptionLabel={(option: any) => option}
+                            freeSolo
+                            onChange={(e, value) => {
+                              setFieldValue(
+                                data.name,
+                                value !== null ? value : data.name
+                              );
+                            }}
+                            renderInput={(params) => (
+                              <FormikTextInput
+                                label={data.label}
+                                variant="filled"
+                                className="filled-input"
+                                name={data.name}
+                                isTextArea={data.isTextArea}
+                                onKeyDown={
+                                  data.name === "mobileNumber"
+                                    ? enforceFormat
+                                    : () => {}
+                                }
+                                onKeyUp={
+                                  data.name === "mobileNumber"
+                                    ? formatToPhone
+                                    : () => {}
+                                }
+                                {...params}
+                              />
+                            )}
+                          />
+                        </Grid>
+                      );
+
+                      const FormikInput = (
+                        <Grid item {...{ ...data.colDef }} key={index}>
+                          <FormikTextInput
+                            label={data.label}
+                            variant="filled"
+                            fullWidth
+                            className="filled-input"
+                            name={data.name}
+                            isTextArea={data.isTextArea}
+                            onKeyDown={
+                              data.name === "mobileNumber"
+                                ? enforceFormat
+                                : () => {}
+                            }
+                            onKeyUp={
+                              data.name === "mobileNumber"
+                                ? formatToPhone
+                                : () => {}
+                            }
+                            inputProps={{
+                              maxLength: data.name === "mobileNumber" ? 16 : 50,
+                            }}
+                          />
+                        </Grid>
+                      );
+
+                      return data.isAutoComplete
+                        ? withAutoComplete
+                        : FormikInput;
+                    })}
                   </Grid>
                   <Promt isDirty={dirty} />
                   <Spinner isVisible={isSubmitting} />
                   <Toast setter={setShowToast} isVisible={showToast} />
+                  {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
                 </form>
               </div>
             </DrawerBase>

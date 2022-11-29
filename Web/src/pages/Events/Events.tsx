@@ -21,12 +21,16 @@ import { listEvents } from "redux/actions/eventActions";
 import { useNavigate } from "react-router-dom";
 import Spinner from "library/Spinner/Spinner";
 import paths from "constants/routes";
+import { FaFileDownload } from "react-icons/fa";
+// @ts-ignore
+import { saveAs } from "file-saver";
 
 const Events: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [clipboardValue, setClipboardValue] = useState("");
+  const [ticket, setTicket] = useState("");
 
   useEffect(() => {
     dispatch(listEvents() as any);
@@ -39,18 +43,13 @@ const Events: React.FC = () => {
     navigate(paths.invalid);
   }
 
+  const downloadImage = () => {
+    saveAs(ticket, "Event Ticket"); // Put your image url here.
+  };
+
   return (
     <div className="event-content">
       <Banner bigTitle="Events" title="See latest updates" hasBorder />
-      {events.map((event: EventsType, i: number) => (
-        <React.Fragment key={i}>
-          <EventCard
-            {...event}
-            setShowDialog={setShowDialog}
-            setClipboardValue={setClipboardValue}
-          />
-        </React.Fragment>
-      ))}
       <WorkingSteps
         bigTitle={
           <React.Fragment>
@@ -60,6 +59,17 @@ const Events: React.FC = () => {
         title="WORKING STEPS"
         steps={eventSteps}
       />
+      {events.map((event: EventsType, i: number) => (
+        <React.Fragment key={i}>
+          <EventCard
+            {...event}
+            id={event._id}
+            setShowDialog={setShowDialog}
+            setClipboardValue={setClipboardValue}
+            setTicket={setTicket}
+          />
+        </React.Fragment>
+      ))}
 
       <Dialog
         open={showDialog}
@@ -96,13 +106,23 @@ const Events: React.FC = () => {
               }}
             />
             <p className="sent-email-instructions">
-              This link has also sent to your email
+              This link has also been sent to your email.
             </p>
+            <a href={ticket} download>
+              <img alt="event-ticket" src={ticket} className="ticket-img" />
+            </a>
           </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShowDialog(false)} variation="light">
             CLOSE
+          </Button>
+          <Button
+            onClick={downloadImage}
+            variation="dark"
+            className="download-button"
+          >
+            <FaFileDownload /> DOWNLOAD TICKET
           </Button>
         </DialogActions>
       </Dialog>

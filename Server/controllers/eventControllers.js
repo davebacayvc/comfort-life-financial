@@ -33,8 +33,24 @@ const getEventById = expressAsync(async (req, res) => {
  * @acess: Private
  */
 const getEventInvites = expressAsync(async (req, res) => {
-  const eventInvites = await EventInvite.find({});
-  res.json(eventInvites);
+  // const eventInvites = await EventInvite.find({});
+  EventInvite.aggregate([
+    {
+      $lookup: {
+        from: "events",
+        localField: "eventId",
+        foreignField: "_id",
+        as: "eventsData",
+      },
+    },
+  ]).exec((err, result) => {
+    if (err) {
+      res.json(err);
+    }
+    if (result) {
+      res.send(result);
+    }
+  });
 });
 
 /**
@@ -53,18 +69,14 @@ const getEventByRefId = expressAsync(async (req, res) => {
       id: eventInvite._id,
       date: eventInvite.date,
       eventId: eventInvite.eventId,
-      invitee: eventInvite.invitee,
       referenceId: eventInvite.referenceId,
       title: event.title,
+      ticket: event.ticket,
       description: event.description,
-      event_date: event.event_date,
+      event_date: event.createdAt,
       image: event.image,
       variant: event.variant,
-      fullName: event.fullName,
-      mobileNumber: event.mobileNumber,
-      emailAddress: event.emailAddress,
-      agentNumber: event.agentNumber,
-      remarks: event.remarks,
+      fullName: eventInvite.fullName,
     });
   } else {
     res.status(404);
@@ -118,10 +130,27 @@ const submitInvite = expressAsync(async (req, res) => {
   }
 });
 
+// @desc    Delete a event invite
+// @route   DELETE /api/products/:id
+// @access  Private/Admin
+const deleteEventInvite = expressAsync(async (req, res) => {
+  const eventInvite = await EventInvite.deleteOne({
+    referenceId: req.params.id,
+  });
+
+  if (eventInvite) {
+    res.json({ message: "Event invite removed." });
+  } else {
+    res.status(404);
+    throw new Error("Event invite not found");
+  }
+});
+
 export {
   getEvents,
   getEventById,
   getEventByRefId,
   submitInvite,
   getEventInvites,
+  deleteEventInvite,
 };

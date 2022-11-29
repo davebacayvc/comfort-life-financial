@@ -6,6 +6,7 @@ const events = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
     event_date: new Date(),
     image: "/assets/others/event-1.png",
+    ticket: "/assets/others/event-ticket.png",
     variant: "dark",
   },
   {
@@ -15,6 +16,7 @@ const events = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
     event_date: new Date(),
     image: "/assets/others/event-2.png",
+    ticket: "/assets/others/event-ticket.png",
     variant: "light",
   },
   {
@@ -24,6 +26,7 @@ const events = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
     event_date: new Date(),
     image: "/assets/others/event-1.png",
+    ticket: "/assets/others/event-ticket.png",
     variant: "dark",
   },
   {
@@ -33,6 +36,7 @@ const events = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
     event_date: new Date(),
     image: "/assets/others/event-2.png",
+    ticket: "/assets/others/event-ticket.png",
     variant: "light",
   },
 ];

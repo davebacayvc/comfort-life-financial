@@ -12,6 +12,8 @@ import generateRandomChars from "helpers/generateRandomChars";
 import { MAIN_LOCALHOST } from "constants/constants";
 import paths from "constants/routes";
 import Button from "library/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { submitInvite } from "redux/actions/eventActions";
 
 type EventValues = {
   fullName: string;
@@ -31,6 +33,7 @@ type EventFormProps = {
   date: string | Date;
   id: string;
   invitee: string;
+  eventId: string;
 };
 const EventForm: React.FC<EventFormProps> = (props) => {
   const form = useRef<any>();
@@ -50,6 +53,10 @@ const EventForm: React.FC<EventFormProps> = (props) => {
       .required("Email address field is required."),
     mobileNumber: Yup.string().required("Mobile Number field is required."),
   });
+
+  const dispatch = useDispatch();
+  const eventInvitesList = useSelector((state: any) => state?.eventInvitesList);
+  const { loading, error } = eventInvitesList;
   return (
     <div className="event-form-container">
       <Formik
@@ -57,18 +64,30 @@ const EventForm: React.FC<EventFormProps> = (props) => {
         validationSchema={validationSchema}
         onSubmit={(data: EventValues, { setSubmitting, resetForm }) => {
           setSubmitting(true);
-          setTimeout(() => {
-            console.log(data);
-            setSubmitting(false);
-            resetForm();
-            props.setClipboardValue(
-              `${MAIN_LOCALHOST}${paths.event_invites.replace(
-                ":id",
-                "D3ZIMFU"
-              )}`
-            );
-            props.setShowDialog(true);
-          }, 3000);
+          const referenceId = generateRandomChars(6);
+          console.log(data);
+          setSubmitting(false);
+          resetForm();
+          dispatch(
+            submitInvite(
+              referenceId,
+              props.eventId,
+              new Date().toString(),
+              data.fullName,
+              data.mobileNumber,
+              data.emailAddress,
+              data.agentNumber,
+              data.invitee,
+              data.remarks
+            ) as any
+          );
+          props.setClipboardValue(
+            `${MAIN_LOCALHOST}${paths.event_invites.replace(
+              ":id",
+              referenceId
+            )}`
+          );
+          props.setShowDialog(true);
         }}
       >
         {({ values, handleSubmit, dirty, isSubmitting }) => {
@@ -130,16 +149,12 @@ const EventForm: React.FC<EventFormProps> = (props) => {
               value: values.remarks,
               colDef: {
                 xs: 12,
-                md: 6,
+                md: 12,
                 lg: 12,
               },
               isTextArea: true,
             },
           ];
-
-          const onSubmitHandler = () => {
-            handleSubmit();
-          };
           return (
             <div>
               <div className="form-instructions">

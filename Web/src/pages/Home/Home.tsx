@@ -20,6 +20,9 @@ import useResponsive from "hooks/useResponsive";
 import Wrapper from "./components/Wrapper/Wrapper";
 import React from "react";
 import classNames from "classnames";
+import Title from "pages/Admin/components/Title/Title";
+import CardNumbers from "library/CardNumbers/CardNumbers";
+import { formatDate } from "helpers/dateFormatter";
 
 const Home: React.FC = () => {
   const [services] = useState(servicesData);
@@ -179,6 +182,23 @@ const Home: React.FC = () => {
                       icon: service.icon,
                     },
                   }}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Wrapper>
+      <Wrapper className="event-wrapper">
+        <Container>
+          <HeaderTitle title="Party with us!" bigTitle="Events" />
+          <Grid container spacing={1} className="endorsement-container">
+            {[1, 2, 3].map(() => (
+              <Grid item xs={12} sm={12} md={4} lg={4}>
+                <CardNumbers
+                  title="This is a title"
+                  description="Morem Ipsum is simply dummy text."
+                  createdAt="Jan 14"
+                  image="/assets/others/event-h.png"
                 />
               </Grid>
             ))}

@@ -32,7 +32,7 @@ const FormikTextInput: React.FC<IFormikTextInput> = (props) => {
     <React.Fragment>
       <TextField
         {...field}
-        {...props}
+        {...clonedProps}
         value={field.value}
         onChange={handleOnChange}
         helperText={errorText}

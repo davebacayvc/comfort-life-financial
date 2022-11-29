@@ -7,6 +7,18 @@
     background-color: #eee;
   }
   .MuiTableCell-body {
-    font-size: 13px;
+    font-size: 12px;
+  }
+
+  .action-buttons {
+    button {
+      margin-right: 0.5rem;
+    }
+  }
+  .MuiCircularProgress-root {
+    margin: auto;
+    .MuiCircularProgress-circleIndeterminate {
+      color: #333;
+    }
   }
 }

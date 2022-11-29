@@ -19,6 +19,7 @@ import Button from "library/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { listEventInviteDetails } from "redux/actions/eventActions";
 import Spinner from "library/Spinner/Spinner";
+import { formatDate } from "helpers/dateFormatter";
 
 const EventInvites: React.FC = () => {
   const navigate = useNavigate();
@@ -50,7 +51,8 @@ const EventInvites: React.FC = () => {
         <Container>
           <div className="event-description">
             <div className="date-wrapper">
-              <CalendarTodayIcon /> <div>{event.date}</div>
+              <CalendarTodayIcon />{" "}
+              <div>{formatDate(event.event_date, "fullFormat")}</div>
             </div>
             <h1>{event.title}</h1>
             <img src={event.image} alt={event.title} />
@@ -64,7 +66,8 @@ const EventInvites: React.FC = () => {
             setClipboardValue={setClipboardValue}
             setShowDialog={setShowDialog}
             title={event.title ?? ""}
-            invitee={event.invitee ?? ""}
+            invitee={event.fullName ?? ""}
+            eventId={event.eventId}
           />
           <Dialog
             open={showDialog}

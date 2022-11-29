@@ -20,6 +20,9 @@ import {
   FaUserLock,
   FaChartArea,
   FaGlassCheers,
+  FaFly,
+  FaEnvelopeOpenText,
+  FaRegCalendarAlt,
 } from "react-icons/fa";
 import React from "react";
 import "./Sidebar.scss";
@@ -108,20 +111,20 @@ const Sidebar: React.FC<SidebarProps> = ({
             Graphs <Link to={paths.adminGraphs} />
           </MenuItem>
           <MenuItem
-            icon={<FaGem />}
+            icon={<FaRegCalendarAlt />}
             active={currentPage === `/${paths.adminCalendar.substring(1)}`}
           >
             Calendar <Link to={paths.adminCalendar} />
           </MenuItem>
           <MenuItem
-            icon={<FaGem />}
+            icon={<FaFly />}
             active={currentPage === `/${paths.adminEvents.substring(1)}`}
           >
             Events <Link to={paths.adminEvents} />
           </MenuItem>
 
           <MenuItem
-            icon={<FaGem />}
+            icon={<FaEnvelopeOpenText />}
             active={currentPage === `/${paths.adminEventInvites.substring(1)}`}
           >
             Event Invites <Link to={paths.adminEventInvites} />

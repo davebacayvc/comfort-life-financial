@@ -164,6 +164,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    position: relative;
 
     .admin-top-nav {
       padding: 1rem;

@@ -50,11 +50,16 @@ $navlink-color-hovered: #0c5adb;
           color: #333;
 
           &:hover {
-            color: $main-color;
+            color: $main-color-new;
+            padding: 0rem 0 0.5rem 0;
+            border-bottom: 2px solid $main-color-new;
           }
         }
         .nav-links-active {
-          color: $main-color;
+          color: $main-color-new;
+          font-weight: 900;
+          padding: 0rem 0 0.5rem 0;
+          border-bottom: 2px solid $main-color-new;
         }
       }
     }

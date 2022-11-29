@@ -4,7 +4,7 @@ const eventInvitesModel = mongoose.Schema(
   {
     date: {
       type: String,
-      required: true,
+      required: false,
     },
     eventId: {
       type: mongoose.Schema.Types.ObjectId,

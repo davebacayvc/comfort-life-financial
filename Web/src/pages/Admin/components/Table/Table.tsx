@@ -6,11 +6,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
 import "./Table.scss";
 
 type DataTableProps = {
   rows?: any;
   columns?: any;
+  loading?: boolean;
 };
 const DataTable: React.FC<DataTableProps> = (props) => {
   const [page, setPage] = React.useState(0);
@@ -27,54 +30,66 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     setPage(0);
   };
 
+  if (props.loading) {
+    return <p className="loading-text">Loading ...</p>;
+  }
+
+  if (props.rows.length === 0) {
+    return <p className="loading-text">No information to display.</p>;
+  }
+
   return (
-    <div className="admin-table-container">
-      <TableContainer>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {props.columns.map((column: any) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {props.rows
-              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row: any) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {props.columns?.map((column: any) => {
-                      const value = row[column.id];
-                      return (
+    <React.Fragment>
+      <div className="admin-table-container">
+        <TableContainer>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {props.columns?.map((column: any) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {props.rows
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row: any) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.code}
+                    >
+                      {props.columns?.map((column: any) => (
                         <TableCell key={column.id} align={column.align}>
-                          {value}
+                          {row[column.id]}
                         </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={props.rows?.length ?? 0}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </div>
+                      ))}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={props.rows?.length ?? 0}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </div>
+    </React.Fragment>
   );
 };
 
-export default DataTable;
+export default React.memo(DataTable);

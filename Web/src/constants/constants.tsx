@@ -19,7 +19,8 @@ export const MAIN_LOCALHOST = "http://localhost:3000";
 /* Web App Constant Images */
 export const IMAGES = {
   COMPANY_LOGOS: {
-    MAIN: "/assets/logos/comfort-life-financial-main-logo.png",
+    // MAIN: "/assets/logos/comfort-life-financial-main-logo.png",
+    MAIN: "/assets/logos/comfort-life-new-logo.png",
     NEW: "/assets/logos/comfort-life-new-logo.png",
   },
   ICONS: {
@@ -137,3 +138,5 @@ export const eventSteps = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
   },
 ];
+
+export const BLANK_VALUE: string = "—";

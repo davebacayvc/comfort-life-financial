@@ -32,6 +32,7 @@ export interface ILabeledInput {
   disabled?: boolean;
   isTextArea?: boolean;
   type?: string;
+  isAutoComplete?: boolean;
 }
 const Form = () => {
   const [showToast, setShowToast] = useState(false);

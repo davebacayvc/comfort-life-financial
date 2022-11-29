@@ -39,7 +39,7 @@ const Login: React.FC = () => {
     emailAddress: Yup.string()
       .email("Invalid email address")
       .required("Email address field is required."),
-    password: Yup.string().required("Email address field is required."),
+    password: Yup.string().required("Password field is required."),
   });
 
   return (
