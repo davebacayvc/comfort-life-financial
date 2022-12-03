@@ -1,4 +1,5 @@
 import {
+  EVENT_ACTION_SUBMIT_TYPES,
   EVENT_ACTION_TYPES,
   EVENT_INVITES_ACTION_TYPES,
   EVENT_INVITE_ACTION_TYPES,
@@ -83,6 +84,22 @@ export const submitInviteReducer = (state: any = {}, action: any) => {
         eventInvite: action.payload,
       };
     case SUBMIT_INVITE_EVENT_ACTION_TYPES.SUBMIT_INVITE_EVENT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const createEventReducer = (state: any = {}, action: any) => {
+  switch (action.type) {
+    case EVENT_ACTION_SUBMIT_TYPES.EVENT_LIST_SUBMIT_REQUEST:
+      return { loading: true };
+    case EVENT_ACTION_SUBMIT_TYPES.EVENT_LIST_SUBMIT_SUCCESS:
+      return {
+        loading: false,
+        event: action.payload,
+      };
+    case EVENT_ACTION_SUBMIT_TYPES.EVENT_LIST_SUBMIT_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

@@ -1,6 +1,11 @@
 import Events from "../models/eventModel.js";
 import expressAsync from "express-async-handler";
 import EventInvite from "../models/eventInvitesModel.js";
+import sendEmail from "../utils/sendNodeMail.js";
+import eventInvitation from "../emailTemplates/event-invitation-template.js";
+import checkBlankValue from "../utils/checkBlankValue.js";
+import cloudinary from "../utils/cloudinary.js";
+import multer from "../utils/multer.js";
 
 /**
  * @desc: Fetch all events
@@ -112,7 +117,47 @@ const submitInvite = expressAsync(async (req, res) => {
     eventId,
   });
 
-  if (inviteeSave) {
+  const events = await Events.findById(inviteeSave.eventId);
+
+  const mailSubject = "Event Invitation";
+  const mailContent = eventInvitation({
+    referenceId: inviteeSave.referenceId,
+    eventId: inviteeSave.eventId,
+    eventName: events.title,
+    eventDate: events.event_date,
+    eventDescription: events.description,
+    eventImage:
+      "https://comfort-life-financial.vercel.app/assets/others/about-1.jpg",
+    fullName: inviteeSave.fullName,
+    mobileNumber: inviteeSave.mobileNumber,
+    emailAddress: inviteeSave.emailAddress,
+    agentNumber: checkBlankValue(inviteeSave.agentNumber),
+    invitee: checkBlankValue(inviteeSave.invitee),
+    remarks: checkBlankValue(inviteeSave.remarks),
+    invitationLink: `http://localhost:3000/${inviteeSave.referenceId}`,
+  });
+
+  const mailAttachments = [
+    {
+      // file on disk as an attachment
+      filename: "event-invitation.png",
+      path: "https://lh3.googleusercontent.com/u/0/drive-viewer/AFDK6gMknRO9FLBGWVkOTMKK_kFaoiYh8c0s4nSrH6ef5iGjzaD27zq7UlF8yDPqJInIF1muaayDgjXK0iFd94shdg1ZqwHwDQ=w1920-h961", // stream this file
+      cid: "event-invitation.png",
+    },
+  ];
+  const sendHTMLEmail = sendEmail(
+    emailAddress,
+    mailSubject,
+    mailContent,
+    mailAttachments
+  )
+    .then((response) => {
+      console.log(response);
+      response.send(response.message);
+    })
+    .catch((error) => res.status(500).send(error.message));
+
+  if (inviteeSave || sendHTMLEmail) {
     res.status(201).json({
       _id: inviteeSave._id,
       fullName: inviteeSave.fullName,
@@ -123,6 +168,11 @@ const submitInvite = expressAsync(async (req, res) => {
       remarks: inviteeSave.remarks,
       referenceId: inviteeSave.referenceId,
       eventId: inviteeSave.eventId,
+      eventName: events.title,
+      eventImage: events.image,
+      eventDescription: events.description,
+      eventDate: events.event_date,
+      eventTicket: events.ticket,
     });
   } else {
     res.status(400);
@@ -131,7 +181,7 @@ const submitInvite = expressAsync(async (req, res) => {
 });
 
 // @desc    Delete a event invite
-// @route   DELETE /api/products/:id
+// @route   DELETE /api/events/:id
 // @access  Private/Admin
 const deleteEventInvite = expressAsync(async (req, res) => {
   const eventInvite = await EventInvite.deleteOne({
@@ -146,6 +196,42 @@ const deleteEventInvite = expressAsync(async (req, res) => {
   }
 });
 
+// @desc    Create a event
+// @route   POST /api/events/
+// @access  Private/Admin
+const createEvent = expressAsync(async (req, res) => {
+  console.log(req.files);
+  try {
+    /** Upload image to cloudinary */
+    const eventImgResult = await cloudinary.uploader.upload(
+      req.files.image[0].path
+    );
+    const eventTicketResult = await cloudinary.uploader.upload(
+      req.files.ticket[0].path
+    );
+
+    let event = new Events({
+      user: "6387dea0938b9e17f8e5a2c3",
+      title: req.body.title.toString(),
+      date: new Date(),
+      description: req.body.title.toString(),
+      event_date: new Date(req.body.event_date),
+      image: eventImgResult.secure_url,
+      ticket: eventTicketResult.secure_url,
+      ticket_cloudinary_id: eventTicketResult.public_id,
+      image_cloudinary_id: eventImgResult.public_id,
+      variant: "light",
+    });
+
+    await event.save();
+    res.json(event);
+  } catch (err) {
+    console.log(err);
+    res.status(404);
+    throw new Error("Error occured in adding event.");
+  }
+});
+
 export {
   getEvents,
   getEventById,
@@ -153,4 +239,5 @@ export {
   submitInvite,
   getEventInvites,
   deleteEventInvite,
+  createEvent,
 };

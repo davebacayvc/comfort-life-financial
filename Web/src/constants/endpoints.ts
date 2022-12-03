@@ -7,6 +7,10 @@ const ENDPOINTS = {
   /* Admin Side */
   USER_LOGIN: "/api/users/login",
   ADMIN_EVENT_INVITES: "/api/events/event-invites/all",
+  CONTACTS: "/api/contacts",
+  INQUIRIES: "/api/inquiries",
+  INQUIRIES_SUBMIT: "/api/inquiries",
+  ADD_EVENT: "/api/events/create-event",
 };
 
 export default ENDPOINTS;

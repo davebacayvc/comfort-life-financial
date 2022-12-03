@@ -10,6 +10,8 @@ import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
 import Spinner from "library/Spinner/Spinner";
 import Toast from "library/Toast/Toast";
+import { submitInquiry } from "redux/actions/inquiryActions";
+import { useDispatch } from "react-redux";
 
 type FormikData = {
   fullName: string;
@@ -33,6 +35,7 @@ export interface ILabeledInput {
   isTextArea?: boolean;
   type?: string;
   isAutoComplete?: boolean;
+  isDate?: boolean;
 }
 const Form = () => {
   const [showToast, setShowToast] = useState(false);
@@ -56,6 +59,7 @@ const Form = () => {
   });
 
   const form = useRef<any>();
+  const dispatch = useDispatch();
 
   const emailJSCredsAdmins = {
     service: "service_rs7qsgl",
@@ -79,6 +83,17 @@ const Form = () => {
         validationSchema={validationSchema}
         onSubmit={(data: FormikData, { setSubmitting, resetForm }) => {
           setSubmitting(true);
+
+          dispatch(
+            submitInquiry(
+              data.fullName,
+              data.mobileNumber,
+              data.emailAddress,
+              data.subject,
+              data.message,
+              data.inquiryType
+            ) as any
+          );
           emailjs
             .sendForm(
               emailJSCredsAdmins.service,
@@ -105,8 +120,6 @@ const Form = () => {
                 )
                 .then(
                   (result) => {
-                    console.log(result.text);
-                    console.log(result);
                     console.log(form.current);
                     setSubmitting(false);
                     setShowToast(true);

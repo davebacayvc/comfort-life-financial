@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  EVENT_ACTION_SUBMIT_TYPES,
   EVENT_ACTION_TYPES,
   EVENT_INVITES_ACTION_TYPES,
   EVENT_INVITE_ACTION_TYPES,
@@ -105,6 +106,11 @@ export const deleteEventInvite =
       dispatch({
         type: EVENT_INVITE_DELETE_ACTION_TYPES.EVENT_INVITE_DELETE_SUCCESS,
       });
+      const { data } = await axios.get(ENDPOINTS.EVENTS);
+      dispatch({
+        type: EVENT_ACTION_TYPES.EVENT_LIST_SUCCESS,
+        payload: data,
+      });
     } catch (error: any) {
       const message =
         error.response && error.response.data.message
@@ -164,6 +170,64 @@ export const submitInvite =
     } catch (error: any) {
       dispatch({
         type: SUBMIT_INVITE_EVENT_ACTION_TYPES.SUBMIT_INVITE_EVENT_FAIL,
+        payload:
+          error?.response! && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const createEvent =
+  (
+    title: string,
+    description: string,
+    event_date: string,
+    variant: string,
+    image: any,
+    ticket: any
+  ) =>
+  async (dispatch: any, getState: any) => {
+    try {
+      dispatch({
+        type: EVENT_ACTION_SUBMIT_TYPES.EVENT_LIST_SUBMIT_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        ENDPOINTS.ADD_EVENT,
+        {
+          title,
+          description,
+          event_date,
+          variant,
+          image,
+          ticket,
+        },
+        config
+      );
+
+      dispatch({
+        type: EVENT_ACTION_SUBMIT_TYPES.EVENT_LIST_SUBMIT_SUCCESS,
+        payload: data,
+      });
+
+      dispatch({
+        type: EVENT_ACTION_TYPES.EVENT_LIST_SUCCESS,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: EVENT_ACTION_SUBMIT_TYPES.EVENT_LIST_SUBMIT_FAIL,
         payload:
           error?.response! && error.response.data.message
             ? error.response.data.message

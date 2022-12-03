@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./Table.scss";
+import NoInformationToDisplay from "library/NoInformationToDisplay/NoInformationToDisplay";
 
 type DataTableProps = {
   rows?: any;
@@ -30,16 +31,14 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     setPage(0);
   };
 
+  useEffect(() => {}, [props.loading]);
+
   if (props.loading) {
     return <p className="loading-text">Loading ...</p>;
   }
 
-  if (props.rows.length === 0) {
-    return <p className="loading-text">No information to display.</p>;
-  }
-
   return (
-    <React.Fragment>
+    <NoInformationToDisplay showNoInfo={!props.rows}>
       <div className="admin-table-container">
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">
@@ -88,8 +87,8 @@ const DataTable: React.FC<DataTableProps> = (props) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </div>
-    </React.Fragment>
+    </NoInformationToDisplay>
   );
 };
 
-export default React.memo(DataTable);
+export default DataTable;

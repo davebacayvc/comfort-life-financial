@@ -12,9 +12,17 @@ import Breadcrumb from "./Breadcrumb/Breadcrumb";
 type GuardedWrapperProps = {
   children: React.ReactNode;
 };
+type ICurrentPage = {
+  text: string;
+  url: string;
+};
 const GuardedWrapper: React.FC<GuardedWrapperProps> = (props) => {
   const [collapsed, setCollapsed] = useState(false);
   const [toggled, setToggled] = useState(false);
+  const [currentPageState, setCurrentPageState] = useState<ICurrentPage>({
+    text: "",
+    url: "",
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userLogin = useSelector((state: any) => state.userLogin);
@@ -52,19 +60,70 @@ const GuardedWrapper: React.FC<GuardedWrapperProps> = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const url = window.location.href;
+  const currentPage = url.split(window.location.host)[1];
+
+  useEffect(() => {
+    switch (currentPage) {
+      case paths.adminCalendar:
+        setCurrentPageState({
+          text: "Calendar",
+          url: "",
+        });
+        break;
+      case paths.adminAccounts:
+        setCurrentPageState({
+          text: "Admin Accounts",
+          url: "",
+        });
+        break;
+      case paths.adminInquiries:
+        setCurrentPageState({
+          text: "Customer Inquiries",
+          url: paths.adminInquiries,
+        });
+        break;
+      case paths.adminEvents:
+        setCurrentPageState({
+          text: "Events",
+          url: "",
+        });
+        break;
+      case paths.adminEventInvites:
+        setCurrentPageState({
+          text: "Event Invites",
+          url: "",
+        });
+        break;
+      case paths.adminContacts:
+        setCurrentPageState({
+          text: "Contacts",
+          url: "",
+        });
+        break;
+      case paths.adminGraphs:
+        setCurrentPageState({
+          text: "Graphs",
+          url: "",
+        });
+        break;
+      case paths.adminDashboard:
+        setCurrentPageState({
+          text: "Dashboard",
+          url: "",
+        });
+        break;
+    }
+  }, [currentPage]);
 
   const crumbs = [
     {
-      title: "Home",
+      title: "Comfort Life Finance Admin",
       url: "",
     },
     {
-      title: "Events",
-      url: "",
-    },
-    {
-      title: "Event Invites",
-      url: "",
+      title: currentPageState.text,
+      url: currentPageState.url,
     },
   ];
 

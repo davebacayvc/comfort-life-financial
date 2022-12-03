@@ -64,6 +64,12 @@ const EventInvites = () => {
         align: "left",
       },
       {
+        id: "agentNumber",
+        label: "Agent Number",
+        minWidth: 80,
+        align: "left",
+      },
+      {
         id: "actions",
         label: "Actions",
         minWidth: 80,
@@ -74,11 +80,12 @@ const EventInvites = () => {
     rows: eventInvites?.map((invite: any) => {
       return {
         refId: invite.referenceId,
-        eventName: invite.eventsData[0].title,
+        eventName: checkBlankValue(invite.eventsData[0]?.title),
         clientName: invite.fullName,
         invitedBy: checkBlankValue(invite.invitee),
         emailAddress: checkBlankValue(invite.emailAddress),
         mobileNumber: checkBlankValue(invite.mobileNumber),
+        agentNumber: checkBlankValue(invite.agentNumber),
         id: checkBlankValue(invite._id),
         actions: (
           <div className="action-buttons">

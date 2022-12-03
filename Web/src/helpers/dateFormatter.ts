@@ -1,6 +1,6 @@
 export const formatDate = (
   fullDate: Date,
-  type: "slashFormat" | "fullFormat"
+  type: "dashFormat" | "fullFormat"
 ) => {
   const options = {
     weekday: "long",
@@ -9,7 +9,7 @@ export const formatDate = (
     day: "numeric",
   };
 
-  return type === "slashFormat"
-    ? new Date(fullDate).toLocaleDateString("en-US")
+  return type === "dashFormat"
+    ? new Date(fullDate).toISOString().slice(0, 10)
     : new Date(fullDate).toLocaleDateString("en-US", options as any);
 };

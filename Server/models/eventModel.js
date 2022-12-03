@@ -31,6 +31,14 @@ const eventsSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    ticket_cloudinary_id: {
+      type: String,
+      required: true,
+    },
+    image_cloudinary_id: {
+      type: String,
+      required: true,
+    },
     variant: {
       type: String,
       required: true,

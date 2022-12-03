@@ -1,12 +1,15 @@
 import { Button } from "@mui/material";
 import Table from "pages/Admin/components/Table/Table";
 import Title from "pages/Admin/components/Title/Title";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listEvents } from "redux/actions/eventActions";
+import Form from "./components/Form";
 
-const Events = () => {
+const Events: React.FC = () => {
   const dispatch = useDispatch();
+  const [showDrawer, setShowDrawer] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {
     dispatch(listEvents() as any);
@@ -63,19 +66,42 @@ const Events = () => {
       return {
         eventId: event._id,
         title: event.title,
-        eventDate: event.date,
+        eventDate: event.event_date,
         description: event.description,
         actions: actionButtons,
       };
     }),
   };
+
+  const addEventHandler = () => {
+    setShowDrawer(true);
+  };
+
+  useEffect(() => {}, [events]);
+
+  console.log(events);
+
   return (
     <div className="admin-events">
       <Title
         title="Events"
         subtitle="Lorem Ipsum is simply dummy text of the printing"
+        button={{
+          show: true,
+          text: "Add Event",
+          onClick: addEventHandler,
+        }}
       />
-      <Table columns={tableDefs.columns} rows={tableDefs.rows} />
+      <Table
+        columns={tableDefs.columns}
+        rows={tableDefs.rows}
+        loading={loading}
+      />
+      <Form
+        setShowDialog={setShowDialog}
+        setShowDrawer={setShowDrawer}
+        showDrawer={showDrawer}
+      />
     </div>
   );
 };

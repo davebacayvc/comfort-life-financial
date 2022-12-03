@@ -8,6 +8,8 @@ const events = [
     image: "/assets/others/event-1.png",
     ticket: "/assets/others/event-ticket.png",
     variant: "dark",
+    ticket_cloudinary_id: "asas",
+    image_cloudinary_id: "asgasg",
   },
   {
     title: "Christmas Party 2",
@@ -18,6 +20,8 @@ const events = [
     image: "/assets/others/event-2.png",
     ticket: "/assets/others/event-ticket.png",
     variant: "light",
+    ticket_cloudinary_id: "asas",
+    image_cloudinary_id: "asgasg",
   },
   {
     title: "Christmas Party 3",
@@ -28,6 +32,8 @@ const events = [
     image: "/assets/others/event-1.png",
     ticket: "/assets/others/event-ticket.png",
     variant: "dark",
+    ticket_cloudinary_id: "asas",
+    image_cloudinary_id: "asgasg",
   },
   {
     title: "Christmas Party 4",
@@ -38,6 +44,8 @@ const events = [
     image: "/assets/others/event-2.png",
     ticket: "/assets/others/event-ticket.png",
     variant: "light",
+    ticket_cloudinary_id: "asas",
+    image_cloudinary_id: "asgasg",
   },
 ];
 export default events;

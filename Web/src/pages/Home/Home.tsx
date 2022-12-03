@@ -188,22 +188,42 @@ const Home: React.FC = () => {
           </Grid>
         </Container>
       </Wrapper>
-      <Wrapper className="event-wrapper">
-        <Container>
-          <HeaderTitle title="Party with us!" bigTitle="Events" />
-          <Grid container spacing={1} className="endorsement-container">
-            {[1, 2, 3].map(() => (
-              <Grid item xs={12} sm={12} md={4} lg={4}>
-                <CardNumbers
-                  title="This is a title"
-                  description="Morem Ipsum is simply dummy text."
-                  createdAt="Jan 14"
-                  image="/assets/others/event-h.png"
-                />
+      <Wrapper className="services">
+        <React.Fragment>
+          <Video />
+          <Container>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <HeaderTitle title="Events" bigTitle="Come and join us!" />
               </Grid>
-            ))}
-          </Grid>
-        </Container>
+              {services.slice(0, 8).map((service) => (
+                <Grid item xs={6} sm={6} md={3} lg={3} key={service.id}>
+                  <Card
+                    isMobileMode={isMobileMode}
+                    content={{
+                      front: {
+                        title: service.title,
+                        icon: (
+                          <img
+                            src="/assets/icons/money-plant-white.png"
+                            width={70}
+                            alt="services-plant"
+                          />
+                        ),
+                      },
+                      back: {
+                        title: service.title,
+                        description: service.description,
+                        icon: service.icon,
+                      },
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </React.Fragment>
       </Wrapper>
       <Wrapper className="endorsement">
         <Container>

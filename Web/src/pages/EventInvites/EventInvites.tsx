@@ -80,6 +80,7 @@ const EventInvites: React.FC = () => {
                 <span>Event Form Submitted</span>
               </div>
             </DialogTitle>
+
             <DialogContent>
               <DialogContentText className="event-dialog-content">
                 <p>

@@ -4,6 +4,8 @@ import connectDB from "./config/db.js";
 import colors from "colors";
 import eventRoutes from "./routes/eventRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import inquiryRoutes from "./routes/inquiryRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 const app = express();
@@ -20,6 +22,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/events/", eventRoutes);
 app.use("/api/users/", userRoutes);
+app.use("/api/inquiries/", inquiryRoutes);
+app.use("/api/contacts/", contactRoutes);
 
 /** Middleware */
 app.use(notFound);
