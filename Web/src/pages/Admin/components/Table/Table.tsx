@@ -38,7 +38,12 @@ const DataTable: React.FC<DataTableProps> = (props) => {
   }
 
   return (
-    <NoInformationToDisplay showNoInfo={!props.rows}>
+    <NoInformationToDisplay
+      showNoInfo={
+        (props.rows?.length === 0 && props.loading === false) ||
+        (props.rows?.length === 0 && !props.loading)
+      }
+    >
       <div className="admin-table-container">
         <TableContainer>
           <Table stickyHeader aria-label="sticky table">

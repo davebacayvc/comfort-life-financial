@@ -3,10 +3,13 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   createEventReducer,
+  eventDeleteReducer,
   eventInviteDeleteReducer,
   eventInviteDetailsReducer,
   eventInvitesListReducer,
   eventListReducer,
+  eventListSingleReducer,
+  eventUpdateReducer,
 } from "redux/reducers/eventReducers";
 import { userLoginReducer } from "redux/reducers/userReducers";
 import { contactListReducer } from "redux/reducers/contactReducers";
@@ -23,6 +26,9 @@ const reducer = combineReducers({
   contactList: contactListReducer,
   inquiryList: inquiryListReducer,
   createEvent: createEventReducer,
+  deleteEveent: eventDeleteReducer,
+  updateEvent: eventUpdateReducer,
+  eventSingleDetails: eventListSingleReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

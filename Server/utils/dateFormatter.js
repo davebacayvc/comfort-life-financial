@@ -1,7 +1,4 @@
-export const formatDate = (
-  fullDate: Date,
-  type: "dashFormat" | "fullFormat"
-) => {
+export const formatDate = (fullDate, type) => {
   const options = {
     weekday: "long",
     year: "numeric",
@@ -11,10 +8,10 @@ export const formatDate = (
 
   return type === "dashFormat"
     ? new Date(fullDate).toISOString().slice(0, 10)
-    : new Date(fullDate).toLocaleDateString("en-US", options as any);
+    : new Date(fullDate).toLocaleDateString("en-US", options);
 };
 
-export function formatAMPM(date: Date) {
+export function formatAMPM(date) {
   let hours = date.getHours();
   let minutes = date.getMinutes().toString();
   let ampm = hours >= 12 ? "pm" : "am";
@@ -25,7 +22,7 @@ export function formatAMPM(date: Date) {
   return strTime;
 }
 
-export const formatISODateToDate = (date: string) => {
+export const formatISODateToDate = (date) => {
   const formattedDate = new Date(date);
   let year = formattedDate.getFullYear();
   let month = (formattedDate.getMonth() + 1).toString();

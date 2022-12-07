@@ -46,6 +46,7 @@ const FormikTextInput: React.FC<IFormikTextInput> = (props) => {
         multiline={props.isTextArea}
         rows={props.isTextArea ? 4 : 0}
         type={props.isDate ? "datetime-local" : "text"}
+        placeholder={props.placeholder ?? "Add text here ..."}
       />
     </React.Fragment>
   );

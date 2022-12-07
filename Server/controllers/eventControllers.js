@@ -6,6 +6,8 @@ import eventInvitation from "../emailTemplates/event-invitation-template.js";
 import checkBlankValue from "../utils/checkBlankValue.js";
 import cloudinary from "../utils/cloudinary.js";
 import multer from "../utils/multer.js";
+import undefinedValidator from "./helpers/undefinedValidator.js";
+import { formatISODateToDate } from "../utils/dateFormatter.js";
 
 /**
  * @desc: Fetch all events
@@ -107,14 +109,14 @@ const submitInvite = expressAsync(async (req, res) => {
   } = req.body;
 
   const inviteeSave = await EventInvite.create({
-    fullName,
-    mobileNumber,
-    emailAddress,
-    agentNumber,
-    invitee,
-    remarks,
-    referenceId,
-    eventId,
+    fullName: fullName.toString(),
+    mobileNumber: mobileNumber.toString(),
+    emailAddress: emailAddress.toString(),
+    agentNumber: agentNumber.toString(),
+    invitee: invitee.toString(),
+    remarks: remarks.toString(),
+    referenceId: referenceId.toString(),
+    eventId: eventId.toString(),
   });
 
   const events = await Events.findById(inviteeSave.eventId);
@@ -124,10 +126,9 @@ const submitInvite = expressAsync(async (req, res) => {
     referenceId: inviteeSave.referenceId,
     eventId: inviteeSave.eventId,
     eventName: events.title,
-    eventDate: events.event_date,
+    eventDate: formatISODateToDate(events.event_date),
     eventDescription: events.description,
-    eventImage:
-      "https://comfort-life-financial.vercel.app/assets/others/about-1.jpg",
+    eventImage: events.image,
     fullName: inviteeSave.fullName,
     mobileNumber: inviteeSave.mobileNumber,
     emailAddress: inviteeSave.emailAddress,
@@ -141,7 +142,7 @@ const submitInvite = expressAsync(async (req, res) => {
     {
       // file on disk as an attachment
       filename: "event-invitation.png",
-      path: "https://lh3.googleusercontent.com/u/0/drive-viewer/AFDK6gMknRO9FLBGWVkOTMKK_kFaoiYh8c0s4nSrH6ef5iGjzaD27zq7UlF8yDPqJInIF1muaayDgjXK0iFd94shdg1ZqwHwDQ=w1920-h961", // stream this file
+      path: events.ticket, // stream this file
       cid: "event-invitation.png",
     },
   ];
@@ -152,7 +153,6 @@ const submitInvite = expressAsync(async (req, res) => {
     mailAttachments
   )
     .then((response) => {
-      console.log(response);
       response.send(response.message);
     })
     .catch((error) => res.status(500).send(error.message));
@@ -200,7 +200,6 @@ const deleteEventInvite = expressAsync(async (req, res) => {
 // @route   POST /api/events/
 // @access  Private/Admin
 const createEvent = expressAsync(async (req, res) => {
-  console.log(req.files);
   try {
     /** Upload image to cloudinary */
     const eventImgResult = await cloudinary.uploader.upload(
@@ -214,14 +213,96 @@ const createEvent = expressAsync(async (req, res) => {
       user: "6387dea0938b9e17f8e5a2c3",
       title: req.body.title.toString(),
       date: new Date(),
-      description: req.body.title.toString(),
-      event_date: new Date(req.body.event_date),
+      description: req.body.description.toString(),
+      event_date: req.body.event_date,
       image: eventImgResult.secure_url,
       ticket: eventTicketResult.secure_url,
       ticket_cloudinary_id: eventTicketResult.public_id,
       image_cloudinary_id: eventImgResult.public_id,
       variant: "light",
     });
+
+    await event.save();
+    res.json(event);
+  } catch (err) {
+    console.log(err);
+    res.status(404);
+    throw new Error("Error occured in adding event.");
+  }
+});
+
+// @desc    Delete a event
+// @route   DELETE /api/events/:id
+// @access  Private/Admin
+const deleteEvent = expressAsync(async (req, res) => {
+  const event = await Events.deleteOne({
+    _id: req.params.id,
+  });
+
+  if (event) {
+    res.json({ message: "Event removed." });
+  } else {
+    res.status(404);
+    throw new Error("Event not found");
+  }
+});
+
+// @desc    Update a event
+// @route   PUT /api/update-event
+// @access  Private/Admin
+const updateEvent = expressAsync(async (req, res) => {
+  try {
+    /** Upload image to cloudinary */
+    let eventImgResult;
+    let eventTicketResult;
+    try {
+      eventImgResult = await cloudinary.uploader.upload(
+        req.files.image[0]?.path
+      );
+    } catch (error) {
+      eventImgResult = req.body.image;
+    }
+    try {
+      eventTicketResult = await cloudinary.uploader.upload(
+        req.files.ticket[0]?.path
+      );
+    } catch (error) {
+      eventTicketResult = req.body.ticket;
+    }
+    const event = await Events.findById(req.body.id);
+
+    if (event) {
+      event.user = undefinedValidator(event.user, req.body.user);
+      event.title = undefinedValidator(event.title, req.body.title);
+      event.date = undefinedValidator(event.date, req.body.date);
+      event.description = undefinedValidator(
+        event.description,
+        req.body.description
+      );
+      event.event_date = undefinedValidator(
+        event.event_date,
+        req.body.event_date
+      );
+      event.variant = undefinedValidator(event.variant, req.body.variant);
+      event.image = eventImgResult.secure_url
+        ? eventImgResult.secure_url
+        : event.image;
+      event.ticket = eventTicketResult.secure_url
+        ? eventTicketResult.secure_url
+        : event.ticket;
+      event.ticket_cloudinary_id = eventTicketResult.public_id
+        ? eventTicketResult.public_id
+        : event.ticket_cloudinary_id;
+      event.image_cloudinary_id = eventImgResult.public_id
+        ? eventImgResult.public_id
+        : event.image_cloudinary_id;
+
+      const updatedEvent = await event.save();
+      res.json(updatedEvent);
+    } else {
+      res.status(404);
+      throw new Error("Event not found");
+    }
 
     await event.save();
     res.json(event);
@@ -240,4 +321,6 @@ export {
   getEventInvites,
   deleteEventInvite,
   createEvent,
+  deleteEvent,
+  updateEvent,
 };

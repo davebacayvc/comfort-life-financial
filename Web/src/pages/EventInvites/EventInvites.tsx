@@ -108,6 +108,13 @@ const EventInvites: React.FC = () => {
                   <p className="sent-email-instructions">
                     This link has also sent to your email
                   </p>
+                  <a href={event.ticket} download>
+                    <img
+                      alt="event-ticket"
+                      src={event.ticket}
+                      className="ticket-img"
+                    />
+                  </a>
                 </div>
               </DialogContentText>
             </DialogContent>

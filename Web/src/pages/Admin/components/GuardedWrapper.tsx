@@ -113,6 +113,12 @@ const GuardedWrapper: React.FC<GuardedWrapperProps> = (props) => {
           url: "",
         });
         break;
+      case paths.adminEventsForm:
+        setCurrentPageState({
+          text: "Events Form",
+          url: "",
+        });
+        break;
     }
   }, [currentPage]);
 

@@ -11,6 +11,7 @@ const ENDPOINTS = {
   INQUIRIES: "/api/inquiries",
   INQUIRIES_SUBMIT: "/api/inquiries",
   ADD_EVENT: "/api/events/create-event",
+  UPDATE_EVENT: "/api/events/update-event",
 };
 
 export default ENDPOINTS;

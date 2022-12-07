@@ -7,39 +7,16 @@ import {
   getEventInvites,
   deleteEventInvite,
   createEvent,
+  deleteEvent,
+  updateEvent,
 } from "../controllers/eventControllers.js";
 import { admin, protect } from "../middleware/authMiddleware.js";
 import multer from "../utils/multer.js";
 
 const router = express.Router();
 
-// const upload = multer({
-//   storage: multer.diskStorage({}),
-//   fileFilter: (req, file, cb) => {
-//     let ext = path.extname(file.originalname);
-//     if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
-//       cb(new Error("File type not supported"), false);
-//       return;
-//     }
-
-//     cb(null, true);
-//   },
-//   limits: {
-//     fileSize: 1024 * 1024 * 10,
-//   },
-// }).fields([
-//   {
-//     name: "image",
-//     maxCount: 1,
-//   },
-//   {
-//     name: "ticket",
-//     maxCount: 1,
-//   },
-// ]);
-
 router.route("/").get(getEvents).post(protect, createEvent);
-router.route("/:id").get(getEventById);
+router.route("/:id").get(getEventById).delete(protect, deleteEvent);
 router
   .route("/invites/:id")
   .get(getEventByRefId)
@@ -57,6 +34,19 @@ router.route("/create-event").post(
     },
   ]),
   createEvent
+);
+router.route("/update-event").put(
+  multer.fields([
+    {
+      name: "image",
+      maxCount: 1,
+    },
+    {
+      name: "ticket",
+      maxCount: 1,
+    },
+  ]),
+  updateEvent
 );
 router.route("/event-invites/:id").get(protect, getEventInvites);
 

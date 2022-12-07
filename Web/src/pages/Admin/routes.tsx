@@ -10,6 +10,7 @@ import AdminAccounts from "./pages/AdminAccounts/AdminAccounts";
 import Events from "./pages/Events/Events";
 import Inquiries from "./pages/Inquiries/Inquiries";
 import Contacts from "./pages/Contacts/Contacts";
+import EventsForm from "./pages/Events/EventsForm";
 
 const adminRoutes = [
   {
@@ -77,6 +78,14 @@ const adminRoutes = [
     ELEMENT: (
       <GuardedWrapper>
         <Events />
+      </GuardedWrapper>
+    ),
+  },
+  {
+    PATH: paths.adminEventsForm,
+    ELEMENT: (
+      <GuardedWrapper>
+        <EventsForm />
       </GuardedWrapper>
     ),
   },

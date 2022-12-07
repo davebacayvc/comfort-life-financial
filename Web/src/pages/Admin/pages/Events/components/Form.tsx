@@ -1,4 +1,4 @@
-import { Grid, Button as MUIButton } from "@mui/material";
+import { Grid, Button as MUIButton, SelectChangeEvent } from "@mui/material";
 import { Formik } from "formik";
 import Button from "library/Button/Button";
 import DrawerBase, { Anchor } from "library/Drawer/Drawer";
@@ -6,9 +6,9 @@ import FormikTextInput from "library/Formik/FormikInput";
 import Promt from "library/Prompt/Promt";
 import Spinner from "library/Spinner/Spinner";
 import { ILabeledInput } from "pages/Contact/components/Form/Form";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createEvent } from "redux/actions/eventActions";
+import { createEvent, listEvents } from "redux/actions/eventActions";
 import * as Yup from "yup";
 import "./Form.scss";
 
@@ -16,8 +16,10 @@ type FormProps = {
   setShowDialog: Dispatch<SetStateAction<any>>;
   setShowDrawer: Dispatch<SetStateAction<any>>;
   showDrawer: boolean;
+  setEventData: Dispatch<SetStateAction<any>>;
+  eventData: any;
 };
-type EventValues = {
+export type EventValues = {
   title: string;
   description: string;
   eventDate: string;
@@ -39,6 +41,8 @@ const Form: React.FC<FormProps> = (props) => {
     title: Yup.string().required("Title field is required."),
     description: Yup.string().required("Description field is required."),
     eventDate: Yup.string().required("Event Date field is required."),
+    image: Yup.string().required("Event image field is required."),
+    flyer: Yup.string().required("Event ticket field is required."),
   });
 
   return (
@@ -50,17 +54,25 @@ const Form: React.FC<FormProps> = (props) => {
           dispatch(
             createEvent(
               values.title,
-              values.eventDate,
               values.description,
+              values.eventDate,
               "dark",
               values.image,
               values.flyer
             ) as any
           );
           actions.setSubmitting(false);
+          // props.setEventData()
         }}
       >
-        {({ values, handleSubmit, dirty, isSubmitting, setFieldValue }) => {
+        {({
+          values,
+          handleSubmit,
+          dirty,
+          isSubmitting,
+          setFieldValue,
+          errors,
+        }) => {
           const labeledInput: ILabeledInput[] = [
             {
               name: "title",
@@ -163,7 +175,9 @@ const Form: React.FC<FormProps> = (props) => {
                           }}
                         />
                       </MUIButton>
-                      <p className="form-error">Event image is required.</p>
+                      {errors.image ? (
+                        <p className="form-error">Event image is required.</p>
+                      ) : null}
                     </Grid>
                     <Grid item xs={12} lg={12}>
                       <h5 className="form-label">Flyer Image</h5>
@@ -181,13 +195,15 @@ const Form: React.FC<FormProps> = (props) => {
                           }}
                         />
                       </MUIButton>
-                      <p className="form-error">Flyer image is required.</p>
+                      {errors.flyer ? (
+                        <p className="form-error">Flyer image is required.</p>
+                      ) : null}
                     </Grid>
                   </Grid>
                   <Promt isDirty={dirty} />
                   <Spinner isVisible={isSubmitting || loading} />
                 </form>
-                <pre>{JSON.stringify(values, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(errors, null, 2)}</pre> */}
               </div>
             </DrawerBase>
           );

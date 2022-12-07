@@ -46,6 +46,8 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const url = window.location.href;
   const currentPage = url.split(window.location.host)[1];
+
+  console.log(currentPage);
   return (
     <ProSidebar
       collapsed={collapsed}
