@@ -69,6 +69,7 @@ const Contacts = () => {
       };
     }),
   };
+  console.log(tableDefs.rows);
   return (
     <div className="admin-contacts">
       <Title

@@ -1,4 +1,10 @@
-import { CONTACT_LIST } from "constants/constants";
+import { CONTACT_LIST, IMAGES } from "constants/constants";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+} from "react-icons/fa";
 import "./Inquiries.scss";
 
 const Inquiries = () => {
@@ -25,6 +31,28 @@ const Inquiries = () => {
               </span>
             </li>
           ))}
+        </ul>
+        <ul className="right-icons">
+          <li>
+            <div className="top-nav-icon">
+              <FaFacebookF />
+            </div>
+          </li>
+          <li>
+            <div className="top-nav-icon">
+              <FaTwitter />
+            </div>
+          </li>
+          <li>
+            <div className="top-nav-icon">
+              <FaLinkedinIn />
+            </div>
+          </li>
+          <li>
+            <div className="top-nav-icon">
+              <FaInstagram />
+            </div>
+          </li>
         </ul>
       </div>
     </div>

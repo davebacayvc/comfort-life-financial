@@ -1,4 +1,4 @@
-import { Grid, Button as MUIButton, SelectChangeEvent } from "@mui/material";
+import { Grid, Button as MUIButton } from "@mui/material";
 import { Formik } from "formik";
 import Button from "library/Button/Button";
 import DrawerBase, { Anchor } from "library/Drawer/Drawer";
@@ -6,9 +6,9 @@ import FormikTextInput from "library/Formik/FormikInput";
 import Promt from "library/Prompt/Promt";
 import Spinner from "library/Spinner/Spinner";
 import { ILabeledInput } from "pages/Contact/components/Form/Form";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createEvent, listEvents } from "redux/actions/eventActions";
+import { createEvent } from "redux/actions/eventActions";
 import * as Yup from "yup";
 import "./Form.scss";
 

@@ -11,6 +11,7 @@ import Events from "./pages/Events/Events";
 import Inquiries from "./pages/Inquiries/Inquiries";
 import Contacts from "./pages/Contacts/Contacts";
 import EventsForm from "./pages/Events/EventsForm";
+import AdminAccountsForm from "./pages/AdminAccounts/AdminAccountsForm";
 
 const adminRoutes = [
   {
@@ -62,6 +63,14 @@ const adminRoutes = [
     ELEMENT: (
       <GuardedWrapper>
         <AdminAccounts />
+      </GuardedWrapper>
+    ),
+  },
+  {
+    PATH: paths.adminAccountsForm,
+    ELEMENT: (
+      <GuardedWrapper>
+        <AdminAccountsForm />
       </GuardedWrapper>
     ),
   },

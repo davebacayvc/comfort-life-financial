@@ -18,9 +18,10 @@ const Contact = () => {
         bigTitle="Contact Us"
         title="Share your suggestions and feedback with us."
         hasBorder={true}
+        backgroundImage="https://demo.casethemes.net/itfirm/wp-content/uploads/2021/09/bg-pagetitle.jpg"
       />
       <Container>
-        <Grid container spacing={2}>
+        <Grid container spacing={5}>
           <Grid item xs={12} md={8} lg={8}>
             <Form />
           </Grid>

@@ -33,10 +33,6 @@ const Home: React.FC = () => {
     "card-container-mobile": isMobileMode,
   });
 
-  const sliderCaptionClassnames = classNames("slider-captions", {
-    "slider-captions-mobile": isMobileMode,
-  });
-
   const servicesProps = {
     isMobileMode,
     header: "30 YEARS OF EXPERIENCE",
@@ -138,34 +134,32 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <div className="welcome-section">
-        <AwesomeSlider
-          bullets={false}
-          animation="cubeAnimation"
-          infinite={true}
-          mobileTouch={true}
-        >
-          <div>
-            <div className={sliderCaptionClassnames}>
-              <h5>Welcome to Comfort Life Financial</h5>
-              <h1>We are creative financial for your life.</h1>
-            </div>
-            <img
-              src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png"
-              alt="slider"
-            />
-          </div>
-          <div>
-            <div className={sliderCaptionClassnames}>
-              <h5>Welcome to Comfort Life Financial</h5>
-              <h1>We are creative financial for your life.</h1>
-            </div>
-            <img
-              src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png"
-              alt="slider"
-            />
-          </div>
-        </AwesomeSlider>
+      <div
+        className="welcome-section"
+        style={{
+          backgroundImage: `url("assets/others/event-1.png")`,
+        }}
+      >
+        <Container>
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            style={{ minHeight: "50vh" }}
+          >
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <h2>We are CFS</h2>
+              <p>
+                CFS helps individuals and families build a comfortable future by
+                advocating Financial Awareness and providing Risk Management
+                Solutions.
+              </p>
+              <p>CFS offers Life Insurance and Annuities.</p>
+            </Grid>
+          </Grid>
+        </Container>
       </div>
       <Wrapper className={cardContainerClassnames}>
         <Container>

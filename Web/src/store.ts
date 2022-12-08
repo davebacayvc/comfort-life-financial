@@ -11,7 +11,11 @@ import {
   eventListSingleReducer,
   eventUpdateReducer,
 } from "redux/reducers/eventReducers";
-import { userLoginReducer } from "redux/reducers/userReducers";
+import {
+  userListReducer,
+  userLoginReducer,
+  userRegisterReducer,
+} from "redux/reducers/userReducers";
 import { contactListReducer } from "redux/reducers/contactReducers";
 import { inquiryListReducer } from "redux/reducers/inquiryReducers";
 
@@ -29,6 +33,8 @@ const reducer = combineReducers({
   deleteEveent: eventDeleteReducer,
   updateEvent: eventUpdateReducer,
   eventSingleDetails: eventListSingleReducer,
+  userAdminList: userListReducer,
+  userAdminRegister: userRegisterReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

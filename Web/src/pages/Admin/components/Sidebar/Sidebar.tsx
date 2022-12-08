@@ -86,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             icon={<FaSkyatlas />}
             active={currentPage === `/${paths.adminServices.substring(1)}`}
           >
-            Services <Link to={paths.adminServices} />
+            Solutions <Link to={paths.adminServices} />
           </MenuItem>
           <MenuItem
             icon={<FaPeopleCarry />}

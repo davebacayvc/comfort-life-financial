@@ -13,6 +13,7 @@ import { Button } from "@mui/material";
 
 const EventInvites = () => {
   const dispatch = useDispatch();
+  const [eventInviteData, setEventInviteData] = useState([]);
 
   useEffect(() => {
     dispatch(listEventInvites() as any);
@@ -26,9 +27,17 @@ const EventInvites = () => {
 
   const { loading: deleteLoading } = eventInvitesDelete;
 
+  useEffect(() => {
+    setEventInviteData(eventInvites);
+  }, [eventInvites]);
+
   const deleteHandler = (id: string) => {
+    const filteredData = eventInviteData.filter(
+      (x: any) => x.referenceId !== id
+    );
     if (window.confirm("Are you sure you want to delete this data?")) {
       dispatch(deleteEventInvite(id) as any);
+      setEventInviteData(filteredData);
     }
   };
   const tableDefs = {
@@ -77,7 +86,7 @@ const EventInvites = () => {
       },
     ],
 
-    rows: eventInvites?.map((invite: any) => {
+    rows: eventInviteData?.map((invite: any) => {
       return {
         refId: invite.referenceId,
         eventName: checkBlankValue(invite.eventsData[0]?.title),

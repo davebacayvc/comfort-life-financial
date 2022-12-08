@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
           currentPage === paths.services.substring(1) ? "nav-links-active" : ""
         }`,
         to: paths.services,
-        text: "Services",
+        text: "Solutions",
       },
       dropdown: false,
     },
@@ -101,6 +101,9 @@ const Navbar: React.FC = () => {
                   <Link {...link.linkProps}>{link.linkProps.text}</Link>
                 </li>
               ))}
+              <li className="highlight-button">
+                <Link to="/">TALK TO US</Link>
+              </li>
             </ul>
           )}
           {isMobileMode && (

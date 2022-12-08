@@ -40,8 +40,8 @@ $navlink-color-hovered: #0c5adb;
 
       li {
         display: inline-block;
-        margin-left: 3rem;
-        font-size: 1.7rem;
+        margin-left: 2rem;
+        font-size: 1.5rem;
         font-weight: 300;
 
         a {
@@ -60,6 +60,29 @@ $navlink-color-hovered: #0c5adb;
           font-weight: 900;
           padding: 0rem 0 0.5rem 0;
           border-bottom: 2px solid $main-color-new;
+        }
+      }
+      .highlight-button {
+        background: $main-color-gradient;
+        border-radius: 26px;
+        font-size: 1.4rem;
+        padding: 1.5rem 3rem;
+        cursor: pointer;
+        border: 1px solid rgba(238, 238, 238, 0.3);
+
+        &:hover {
+          background: white !important;
+          border-color: #232323;
+
+          a {
+            color: #333;
+            border-color: transparent;
+          }
+        }
+
+        a {
+          font-weight: 400;
+          color: white;
         }
       }
     }

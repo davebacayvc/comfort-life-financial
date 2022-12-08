@@ -7,6 +7,7 @@ import {
   EVENT_INVITES_ACTION_TYPES,
   EVENT_INVITE_ACTION_TYPES,
   EVENT_INVITE_DELETE_ACTION_TYPES,
+  EVENT_INVITE_LIST_COUNT_ACTION_TYPES,
   EVENT_LIST_SINGLE_TYPES,
   SUBMIT_INVITE_EVENT_ACTION_TYPES,
 } from "constants/redux-constants";
@@ -339,6 +340,43 @@ export const updateEvent =
       dispatch({
         type: EVENT_ACTION_UPDATE_TYPES.EVENT_LIST_UPDATE_FAIL,
         payload: message,
+      });
+    }
+  };
+
+export const listEventInvitesByEventId =
+  () => async (dispatch: any, getState: any) => {
+    try {
+      dispatch({
+        type: EVENT_INVITE_LIST_COUNT_ACTION_TYPES.EVENT_INVITE_LIST_COUNT_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        ENDPOINTS.EVENT_INVITE_BY_EVENT_ID,
+        config
+      );
+
+      dispatch({
+        type: EVENT_INVITE_LIST_COUNT_ACTION_TYPES.EVENT_INVITE_LIST_COUNT_SUCCESS,
+        payload: data,
+      });
+    } catch (error: any) {
+      dispatch({
+        type: EVENT_INVITE_LIST_COUNT_ACTION_TYPES.EVENT_INVITE_LIST_COUNT_FAIL,
+        payload:
+          error?.response! && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };

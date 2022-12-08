@@ -91,23 +91,8 @@ export const CONTACT_LIST = [
     icon: <LocalPhoneIcon />,
   },
   {
-    NAME: "Tel (PH)",
-    VALUE: "+639 123 2223",
-    icon: <LocalPhoneIcon />,
-  },
-  {
     NAME: "E-mail",
-    VALUE: "comfortlife@test.com",
-    icon: <AlternateEmailIcon />,
-  },
-  {
-    NAME: "Business Inquiry",
-    VALUE: "comfortlife@test.com",
-    icon: <AlternateEmailIcon />,
-  },
-  {
-    NAME: "General Inquiry",
-    VALUE: "comfortlife@test.com",
+    VALUE: "support@gocfs.pro",
     icon: <AlternateEmailIcon />,
   },
 ];

@@ -6,6 +6,7 @@ import {
   EVENT_INVITES_ACTION_TYPES,
   EVENT_INVITE_ACTION_TYPES,
   EVENT_INVITE_DELETE_ACTION_TYPES,
+  EVENT_INVITE_LIST_COUNT_ACTION_TYPES,
   EVENT_LIST_SINGLE_TYPES,
   SUBMIT_INVITE_EVENT_ACTION_TYPES,
 } from "constants/redux-constants";
@@ -150,6 +151,25 @@ export const eventListSingleReducer = (state = { event: {} }, action: any) => {
         event: action.payload,
       };
     case EVENT_LIST_SINGLE_TYPES.EVENT_LIST_SINGLE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const eventInviteListByEventIdReducer = (
+  state: any = { eventInvites: [] },
+  action: any
+) => {
+  switch (action.type) {
+    case EVENT_INVITE_LIST_COUNT_ACTION_TYPES.EVENT_INVITE_LIST_COUNT_REQUEST:
+      return { loading: true, eventInvites: [] };
+    case EVENT_INVITE_LIST_COUNT_ACTION_TYPES.EVENT_INVITE_LIST_COUNT_SUCCESS:
+      return {
+        loading: false,
+        eventInvites: action.payload,
+      };
+    case EVENT_INVITE_LIST_COUNT_ACTION_TYPES.EVENT_INVITE_LIST_COUNT_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

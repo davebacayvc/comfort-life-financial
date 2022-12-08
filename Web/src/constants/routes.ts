@@ -16,6 +16,7 @@ const paths = {
   adminCalendar: "/admin/calendar",
   adminServices: "/admin/services",
   adminAccounts: "/admin/admin-accounts",
+  adminAccountsForm: "/admin/admin-accounts/:id",
   adminEvents: "/admin/events",
   adminEventsForm: "/admin/events/:id",
   adminGraphs: "/admin/graphs",
