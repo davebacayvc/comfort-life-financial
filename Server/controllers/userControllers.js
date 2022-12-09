@@ -61,7 +61,7 @@ const registerUser = expressAsync(async (req, res) => {
 
 /**
  * @desc:  Get user profile
- * @route: POST /api/users/profile
+ * @route: GET /api/users/profile
  * @acess: Private
  */
 const getUserProfile = expressAsync(async (req, res) => {
@@ -80,4 +80,38 @@ const getUserProfile = expressAsync(async (req, res) => {
   }
 });
 
-export { authUser, getUserProfile, registerUser };
+/**
+ * @desc:  Get all Users
+ * @route: GET /api/users/
+ * @acess: Private
+ */
+const getAllUsers = expressAsync(async (req, res) => {
+  const users = await User.find({});
+
+  if (users) {
+    res.json(users);
+  } else {
+    res.status(401);
+    throw new Error("Users not found.");
+  }
+});
+
+/**
+ * @desc:  DELETE User
+ * @route: DELETE /api/users/:id
+ * @acess: Private
+ */
+const deleteUser = expressAsync(async (req, res) => {
+  const event = await User.deleteOne({
+    _id: req.params.id,
+  });
+
+  if (event) {
+    res.json({ message: "User removed." });
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+export { authUser, getUserProfile, registerUser, getAllUsers, deleteUser };

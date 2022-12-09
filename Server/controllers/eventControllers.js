@@ -248,7 +248,7 @@ const deleteEvent = expressAsync(async (req, res) => {
 });
 
 // @desc    Update a event
-// @route   PUT /api/update-event
+// @route   PUT /api/events/update-event
 // @access  Private/Admin
 const updateEvent = expressAsync(async (req, res) => {
   try {
@@ -313,6 +313,17 @@ const updateEvent = expressAsync(async (req, res) => {
   }
 });
 
+// @desc    Get total count of invites by eventId
+// @route   GET /api/events/eventInviteCount
+// @access  Private/Admin
+const getCountInviteByEventId = expressAsync(async (req, res) => {
+  const eventInvite = await EventInvite.find({
+    eventId: req.params.id,
+  });
+
+  res.json(eventInvite);
+});
+
 export {
   getEvents,
   getEventById,
@@ -323,4 +334,5 @@ export {
   createEvent,
   deleteEvent,
   updateEvent,
+  getCountInviteByEventId,
 };

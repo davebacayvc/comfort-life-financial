@@ -3,28 +3,41 @@
 .home-container {
   .welcome-section {
     position: relative;
-    margin-top: 1.5rem;
     height: 50vh;
-    text-align: center;
 
-    h2 {
-      font-weight: 900;
-      font-size: 6rem;
-      color: white;
-      text-transform: uppercase;
+    .welcome-section-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
     }
-    p {
-      font-size: 1.6rem;
-      font-weight: 300;
-      color: white;
-      width: 600px;
-      margin: auto;
-      margin-bottom: 2rem;
+
+    &-image {
+      img {
+        width: 100%;
+      }
+    }
+    &-captions {
+      h2 {
+        font-weight: 900;
+        font-size: 6rem;
+        color: #333;
+        text-transform: uppercase;
+      }
+      p {
+        font-size: 1.6rem;
+        font-weight: 300;
+        color: #333;
+        width: 600px;
+        margin: auto;
+        margin-bottom: 2rem;
+      }
     }
   }
 
   .card-container {
-    margin-top: -10rem;
+    margin-top: -5rem;
   }
   .card-container-mobile {
     margin-top: 0rem;
@@ -103,13 +116,22 @@
     }
   }
 
-  .contact {
-    padding: 10rem 0;
+  .solutions {
+    height: 600px;
     background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-size: cover;
+    background-attachment: fixed;
 
     .header-title {
       color: white;
-
+      .divider {
+        background-color: white;
+        margin: 1rem 0;
+      }
       h5 {
         font-weight: 300;
         color: white;
@@ -119,6 +141,62 @@
         font-weight: 600;
         font-size: 4rem;
         color: white;
+      }
+    }
+
+    .description {
+      width: 500px;
+      font-weight: 300;
+      font-weight: 300;
+      color: white;
+      font-size: 1.4rem;
+      margin-bottom: 3rem;
+      line-height: 20px;
+    }
+
+    .solution-grid {
+      .solution-item {
+        background-color: white;
+        padding: 4rem 0;
+        border-radius: 10px;
+        position: relative;
+        border-bottom: 5px solid $main-color-new;
+        overflow: hidden;
+
+        img {
+          filter: grayscale(100%);
+          transition: 1s ease-in-out;
+          cursor: pointer;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          z-index: 1;
+          opacity: 0.3;
+        }
+
+        &:hover {
+          img {
+            filter: grayscale(0);
+            opacity: 1;
+            transform: scale(1.1) rotate(-1deg);
+          }
+          h2 {
+            color: white;
+            cursor: pointer;
+          }
+        }
+
+        h2 {
+          font-weight: 900;
+          font-size: 3rem;
+          text-align: center;
+          z-index: 999;
+          color: #333;
+          position: relative;
+          text-transform: uppercase;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
       }
     }
   }

@@ -11,6 +11,7 @@ interface IWorkingSteps {
     subTitle: string;
     description: string;
   }[];
+  topTitle?: string;
 }
 
 /** TODO: Put this to library */
@@ -24,7 +25,7 @@ const WorkingSteps: React.FC<IWorkingSteps> = (props) => {
     >
       <Container>
         <div className="title">
-          <h5>Working Steps</h5>
+          <h5>{props.topTitle || "Working Steps"}</h5>
           {typeof props.title === "string" ? (
             <h1>{props.bigTitle}</h1>
           ) : (

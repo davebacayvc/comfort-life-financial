@@ -9,6 +9,7 @@ import {
   createEvent,
   deleteEvent,
   updateEvent,
+  getCountInviteByEventId,
 } from "../controllers/eventControllers.js";
 import { admin, protect } from "../middleware/authMiddleware.js";
 import multer from "../utils/multer.js";
@@ -16,6 +17,7 @@ import multer from "../utils/multer.js";
 const router = express.Router();
 
 router.route("/").get(getEvents).post(protect, createEvent);
+router.route("/eventInviteCount/:id").get(protect, getCountInviteByEventId);
 router.route("/:id").get(getEventById).delete(protect, deleteEvent);
 router
   .route("/invites/:id")

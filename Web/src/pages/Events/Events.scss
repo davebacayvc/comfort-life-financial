@@ -21,6 +21,17 @@
       }
       h5 {
         color: #333;
+        font-weight: 300;
+
+        &::after {
+          display: block;
+          width: 100px;
+          content: "";
+          background-color: #333;
+          height: 3px;
+          margin: auto;
+          margin-top: 1rem;
+        }
       }
       p {
         color: #333;

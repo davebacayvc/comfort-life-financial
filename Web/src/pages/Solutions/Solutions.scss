@@ -1,3 +1,4 @@
+@import "~styles/base";
 .services-content {
   .welcome-section {
     position: relative;
@@ -50,6 +51,31 @@
 
       .divider {
         margin-top: 1rem;
+      }
+    }
+  }
+
+  .solutions {
+    .solutions-item {
+      margin-bottom: 3rem;
+      .solution-header {
+        margin-bottom: 2rem;
+        h2 {
+          font-weight: 900;
+          font-size: 3rem;
+        }
+        p {
+          font-size: 1.6rem;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  .working-steps {
+    .title {
+      h1 span {
+        color: $main-color-new;
       }
     }
   }

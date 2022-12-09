@@ -134,31 +134,20 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <div
-        className="welcome-section"
-        style={{
-          backgroundImage: `url("assets/others/event-1.png")`,
-        }}
-      >
-        <Container>
-          <Grid
-            container
-            spacing={2}
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-            style={{ minHeight: "50vh" }}
-          >
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <h2>We are CFS</h2>
-              <p>
-                CFS helps individuals and families build a comfortable future by
-                advocating Financial Awareness and providing Risk Management
-                Solutions.
-              </p>
-              <p>CFS offers Life Insurance and Annuities.</p>
-            </Grid>
-          </Grid>
+      <div className="welcome-section">
+        <Container className="welcome-section-container">
+          <div className="welcome-section-image">
+            <img src="/assets/others/happy-fam.png" alt="happy family" />
+          </div>
+          <div className="welcome-section-captions">
+            <h2>We are CFS</h2>
+            <p>
+              CFS helps individuals and families build a comfortable future by
+              advocating Financial Awareness and providing Risk Management
+              Solutions.
+            </p>
+            <p>CFS offers Life Insurance and Annuities.</p>
+          </div>
         </Container>
       </div>
       <Wrapper className={cardContainerClassnames}>
@@ -181,43 +170,6 @@ const Home: React.FC = () => {
             ))}
           </Grid>
         </Container>
-      </Wrapper>
-      <Wrapper className="services">
-        <React.Fragment>
-          <Video />
-          <Container>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={12} lg={12}>
-                <HeaderTitle title="Events" bigTitle="Come and join us!" />
-              </Grid>
-              {services.slice(0, 8).map((service) => (
-                <Grid item xs={6} sm={6} md={3} lg={3} key={service.id}>
-                  <Card
-                    isMobileMode={isMobileMode}
-                    content={{
-                      front: {
-                        title: service.title,
-                        icon: (
-                          <img
-                            src="/assets/icons/money-plant-white.png"
-                            width={70}
-                            alt="services-plant"
-                          />
-                        ),
-                      },
-                      back: {
-                        title: service.title,
-                        description: service.description,
-                        icon: service.icon,
-                      },
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </Container>
-        </React.Fragment>
       </Wrapper>
       <Wrapper className="endorsement">
         <Container>
@@ -298,22 +250,39 @@ const Home: React.FC = () => {
         </Container>
       </Wrapper>
       <Wrapper
-        className="contact"
-        style={{ backgroundImage: `url("/assets/others/bg.png")` }}
+        className="solutions"
+        style={{
+          backgroundImage: `url("https://techno.dreamitsolution.net/wp-content/uploads/2020/12/slider05-1.jpg")`,
+        }}
       >
         <Container>
           <HeaderTitle
-            title="+880 013 143 206"
-            bigTitle="To Make Requests For The Further Information"
-            hasBorder={false}
+            title="Solutions"
+            bigTitle="Let's get started"
+            hasBorder={true}
           />
-          <Button onClick={() => setCalendlyModal(true)}>Contact Us</Button>
-          <PopupModal
-            url="https://calendly.com/dave-bacay-vc/call-us-testing"
-            onModalClose={() => setCalendlyModal(false)}
-            open={calendlyModal}
-            rootElement={document.getElementById("root") as any}
-          />
+          <p className="description">
+            There's a lot to know, and we have the information to help you make
+            informed decision about your financial future. Let's take a closer
+            look at what it means to have a annuity or life insurance, and why
+            both are important.
+          </p>
+          <Grid container spacing={2} className="solution-grid">
+            <Grid item xs={12} lg={6}>
+              <div className="solution-item">
+                <h2>What is Life Insurance?</h2>
+                <img src="https://picsum.photos/536/354" />
+              </div>
+            </Grid>
+            <Grid item xs={12} lg={6}></Grid>
+            <Grid item xs={12} lg={6}>
+              <div className="solution-item">
+                <h2>What is an Annuity?</h2>
+                <img src="https://picsum.photos/536/354" />
+              </div>
+            </Grid>
+            <Grid item xs={12} lg={6}></Grid>
+          </Grid>
         </Container>
       </Wrapper>
       <Wrapper>
@@ -327,7 +296,7 @@ const Home: React.FC = () => {
                 <InlineWidget
                   url="https://calendly.com/dave-bacay-vc/call-us-testing"
                   styles={{
-                    height: "950px",
+                    height: "800px",
                     width: "100%",
                     marginBottom: "-5rem",
                   }}

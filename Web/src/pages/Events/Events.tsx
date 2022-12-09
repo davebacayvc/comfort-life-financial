@@ -1,7 +1,7 @@
 import { eventSteps } from "constants/constants";
 import { EventsType } from "data/events";
 import Banner from "library/Banner/Banner";
-import WorkingSteps from "pages/Services/components/WorkingSteps";
+import WorkingSteps from "pages/Solutions/components/WorkingSteps";
 import React, { useEffect, useState } from "react";
 import EventCard from "./components/EventCard";
 import "./Events.scss";
@@ -57,6 +57,7 @@ const Events: React.FC = () => {
           </React.Fragment>
         }
         title="WORKING STEPS"
+        topTitle="Join With Us!"
         steps={eventSteps}
       />
       {events.map((event: EventsType, i: number) => (

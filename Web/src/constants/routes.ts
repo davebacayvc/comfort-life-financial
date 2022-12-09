@@ -1,7 +1,7 @@
 const paths = {
   index: "/",
   home: "/home",
-  services: "/services",
+  solutions: "/solutions",
   portal: "/portal",
   contact: "/contact",
   about: "/about",

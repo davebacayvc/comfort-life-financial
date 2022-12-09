@@ -19,7 +19,7 @@ import { submitInvite } from "redux/actions/eventActions";
 import { useDispatch, useSelector } from "react-redux";
 import { enforceFormat, formatToPhone } from "helpers/mobileNumberFormatter";
 import { agents } from "data/agents";
-import { formatDate } from "helpers/dateFormatter";
+import { formatDate, formatISODateToDate } from "helpers/dateFormatter";
 
 export type EventCardVariant = "light" | "dark";
 
@@ -31,6 +31,7 @@ interface IEventCard {
   id: string;
   variant: EventCardVariant;
   ticket?: string;
+  event_date: Date | string;
   setShowDialog: Dispatch<SetStateAction<any>>;
   setClipboardValue: Dispatch<SetStateAction<any>>;
   setTicket: Dispatch<SetStateAction<any>>;
@@ -83,7 +84,7 @@ const EventCard: React.FC<IEventCard> = (props) => {
         <div className="event-card-content">
           <div className="date-wrapper">
             <CalendarTodayIcon />
-            {formatDate(props.createdAt, "fullFormat")}
+            {formatISODateToDate(props.event_date.toString())}
           </div>
           <h1>{props.title}</h1>
           <p>{props.description}</p>
@@ -223,7 +224,7 @@ const EventCard: React.FC<IEventCard> = (props) => {
                 <div className="event-captions">
                   <div className="date-wrapper">
                     <CalendarTodayIcon />{" "}
-                    {formatDate(props.createdAt, "fullFormat")}
+                    {formatISODateToDate(props.event_date.toString())}
                   </div>
                   <h2>{props.title}</h2>
                   <p>{props.description}</p>

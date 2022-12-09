@@ -16,14 +16,23 @@ connectDB();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
 
 app.use("/api/events/", eventRoutes);
 app.use("/api/users/", userRoutes);
 app.use("/api/inquiries/", inquiryRoutes);
 app.use("/api/contacts/", contactRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/Web/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "Web", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
+}
 
 /** Middleware */
 app.use(notFound);

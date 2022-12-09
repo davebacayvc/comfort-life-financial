@@ -63,9 +63,9 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: `nav-links ${
-          currentPage === paths.services.substring(1) ? "nav-links-active" : ""
+          currentPage === paths.solutions.substring(1) ? "nav-links-active" : ""
         }`,
-        to: paths.services,
+        to: paths.solutions,
         text: "Solutions",
       },
       dropdown: false,

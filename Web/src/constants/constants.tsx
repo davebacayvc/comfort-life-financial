@@ -9,7 +9,7 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import InvalidRoute from "pages/InvalidRoute/InvalidRoute";
 import Portal from "pages/Portal/Portal";
-import Services from "pages/Services/Services";
+import Solutions from "pages/Solutions/Solutions";
 import Events from "pages/Events/Events";
 import EventInvites from "pages/EventInvites/EventInvites";
 import adminRoutes from "pages/Admin/routes";
@@ -60,8 +60,8 @@ export const REACT_ROUTES: ReactRoutesType[] = [
     ELEMENT: <PageWrapper component={<Portal />} />,
   },
   {
-    PATH: paths.services,
-    ELEMENT: <PageWrapper component={<Services />} />,
+    PATH: paths.solutions,
+    ELEMENT: <PageWrapper component={<Solutions />} />,
   },
   {
     PATH: paths.events,
@@ -101,26 +101,22 @@ export const eventSteps = [
   {
     title: "01",
     subTitle: "Pick a Event",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+    description: "",
   },
   {
     title: "02",
     subTitle: "Submit a form",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+    description: "",
   },
   {
     title: "03",
     subTitle: "Get the refence ID",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+    description: "",
   },
   {
     title: "04",
     subTitle: "Get in touch!",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
+    description: "",
   },
 ];
 
