@@ -30,6 +30,17 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: `nav-links ${
+          currentPage === paths.events.substring(1) ? "nav-links-active" : ""
+        }`,
+        to: paths.events,
+        text: "Events",
+      },
+      dropdown: false,
+    },
+    {
+      className: "nav-item",
+      linkProps: {
+        className: `nav-links ${
           currentPage === paths.about.substring(1) ? "nav-links-active" : ""
         }`,
         to: paths.about,
@@ -52,10 +63,10 @@ const Navbar: React.FC = () => {
       className: "nav-item",
       linkProps: {
         className: `nav-links ${
-          currentPage === paths.services.substring(1) ? "nav-links-active" : ""
+          currentPage === paths.solutions.substring(1) ? "nav-links-active" : ""
         }`,
-        to: paths.services,
-        text: "Services",
+        to: paths.solutions,
+        text: "Solutions",
       },
       dropdown: false,
     },
@@ -90,6 +101,9 @@ const Navbar: React.FC = () => {
                   <Link {...link.linkProps}>{link.linkProps.text}</Link>
                 </li>
               ))}
+              <li className="highlight-button">
+                <Link to="/">TALK TO US</Link>
+              </li>
             </ul>
           )}
           {isMobileMode && (

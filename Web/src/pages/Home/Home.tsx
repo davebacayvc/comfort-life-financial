@@ -20,6 +20,9 @@ import useResponsive from "hooks/useResponsive";
 import Wrapper from "./components/Wrapper/Wrapper";
 import React from "react";
 import classNames from "classnames";
+import Title from "pages/Admin/components/Title/Title";
+import CardNumbers from "library/CardNumbers/CardNumbers";
+import { formatDate } from "helpers/dateFormatter";
 
 const Home: React.FC = () => {
   const [services] = useState(servicesData);
@@ -28,10 +31,6 @@ const Home: React.FC = () => {
 
   const cardContainerClassnames = classNames("card-container", {
     "card-container-mobile": isMobileMode,
-  });
-
-  const sliderCaptionClassnames = classNames("slider-captions", {
-    "slider-captions-mobile": isMobileMode,
   });
 
   const servicesProps = {
@@ -136,27 +135,20 @@ const Home: React.FC = () => {
   return (
     <div className="home-container">
       <div className="welcome-section">
-        <AwesomeSlider
-          bullets={false}
-          animation="cubeAnimation"
-          infinite={true}
-          mobileTouch={true}
-        >
-          <div>
-            <div className={sliderCaptionClassnames}>
-              <h5>Welcome to Comfort Life Financial</h5>
-              <h1>We are creative financial for your life.</h1>
-            </div>
-            <img src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png" />
+        <Container className="welcome-section-container">
+          <div className="welcome-section-image">
+            <img src="/assets/others/happy-fam.png" alt="happy family" />
           </div>
-          <div>
-            <div className={sliderCaptionClassnames}>
-              <h5>Welcome to Comfort Life Financial</h5>
-              <h1>We are creative financial for your life.</h1>
-            </div>
-            <img src="https://techno.dreamitsolution.net/wp-content/uploads/2020/10/slider2.png" />
+          <div className="welcome-section-captions">
+            <h2>We are CFS</h2>
+            <p>
+              CFS helps individuals and families build a comfortable future by
+              advocating Financial Awareness and providing Risk Management
+              Solutions.
+            </p>
+            <p>CFS offers Life Insurance and Annuities.</p>
           </div>
-        </AwesomeSlider>
+        </Container>
       </div>
       <Wrapper className={cardContainerClassnames}>
         <Container>
@@ -217,6 +209,7 @@ const Home: React.FC = () => {
                           <img
                             src="/assets/icons/money-plant-white.png"
                             width={70}
+                            alt="services-plant"
                           />
                         ),
                       },
@@ -257,22 +250,39 @@ const Home: React.FC = () => {
         </Container>
       </Wrapper>
       <Wrapper
-        className="contact"
-        style={{ backgroundImage: `url("/assets/others/bg.png")` }}
+        className="solutions"
+        style={{
+          backgroundImage: `url("https://techno.dreamitsolution.net/wp-content/uploads/2020/12/slider05-1.jpg")`,
+        }}
       >
         <Container>
           <HeaderTitle
-            title="+880 013 143 206"
-            bigTitle="To Make Requests For The Further Information"
-            hasBorder={false}
+            title="Solutions"
+            bigTitle="Let's get started"
+            hasBorder={true}
           />
-          <Button onClick={() => setCalendlyModal(true)}>Contact Us</Button>
-          <PopupModal
-            url="https://calendly.com/dave-bacay-vc/call-us-testing"
-            onModalClose={() => setCalendlyModal(false)}
-            open={calendlyModal}
-            rootElement={document.getElementById("root") as any}
-          />
+          <p className="description">
+            There's a lot to know, and we have the information to help you make
+            informed decision about your financial future. Let's take a closer
+            look at what it means to have a annuity or life insurance, and why
+            both are important.
+          </p>
+          <Grid container spacing={2} className="solution-grid">
+            <Grid item xs={12} lg={6}>
+              <div className="solution-item">
+                <h2>What is Life Insurance?</h2>
+                <img src="https://picsum.photos/536/354" />
+              </div>
+            </Grid>
+            <Grid item xs={12} lg={6}></Grid>
+            <Grid item xs={12} lg={6}>
+              <div className="solution-item">
+                <h2>What is an Annuity?</h2>
+                <img src="https://picsum.photos/536/354" />
+              </div>
+            </Grid>
+            <Grid item xs={12} lg={6}></Grid>
+          </Grid>
         </Container>
       </Wrapper>
       <Wrapper>
@@ -286,7 +296,7 @@ const Home: React.FC = () => {
                 <InlineWidget
                   url="https://calendly.com/dave-bacay-vc/call-us-testing"
                   styles={{
-                    height: "950px",
+                    height: "800px",
                     width: "100%",
                     marginBottom: "-5rem",
                   }}

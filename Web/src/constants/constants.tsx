@@ -9,12 +9,19 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import InvalidRoute from "pages/InvalidRoute/InvalidRoute";
 import Portal from "pages/Portal/Portal";
-import Services from "pages/Services/Services";
+import Solutions from "pages/Solutions/Solutions";
+import Events from "pages/Events/Events";
+import EventInvites from "pages/EventInvites/EventInvites";
+import adminRoutes from "pages/Admin/routes";
+
+export const MAIN_LOCALHOST = "http://localhost:3000";
 
 /* Web App Constant Images */
 export const IMAGES = {
   COMPANY_LOGOS: {
-    MAIN: "/assets/logos/comfort-life-financial-main-logo.png",
+    // MAIN: "/assets/logos/comfort-life-financial-main-logo.png",
+    MAIN: "/assets/logos/comfort-life-new-logo.png",
+    NEW: "/assets/logos/comfort-life-new-logo.png",
   },
   ICONS: {
     THINKING: "/assets/icons/thinking-icon.png",
@@ -25,6 +32,7 @@ export const VIDEO_FINANCING = "/assets/video/coming-soon-video.mp4";
 export const COMPANY_NAME = "Comfort Life Financial";
 
 export const REACT_ROUTES: ReactRoutesType[] = [
+  ...adminRoutes,
   {
     PATH: paths.index,
     ELEMENT: (
@@ -52,8 +60,16 @@ export const REACT_ROUTES: ReactRoutesType[] = [
     ELEMENT: <PageWrapper component={<Portal />} />,
   },
   {
-    PATH: paths.services,
-    ELEMENT: <PageWrapper component={<Services />} />,
+    PATH: paths.solutions,
+    ELEMENT: <PageWrapper component={<Solutions />} />,
+  },
+  {
+    PATH: paths.events,
+    ELEMENT: <PageWrapper component={<Events />} />,
+  },
+  {
+    PATH: paths.event_invites,
+    ELEMENT: <PageWrapper component={<EventInvites />} />,
   },
   {
     PATH: "*",
@@ -75,23 +91,33 @@ export const CONTACT_LIST = [
     icon: <LocalPhoneIcon />,
   },
   {
-    NAME: "Tel (PH)",
-    VALUE: "+639 123 2223",
-    icon: <LocalPhoneIcon />,
-  },
-  {
     NAME: "E-mail",
-    VALUE: "comfortlife@test.com",
-    icon: <AlternateEmailIcon />,
-  },
-  {
-    NAME: "Business Inquiry",
-    VALUE: "comfortlife@test.com",
-    icon: <AlternateEmailIcon />,
-  },
-  {
-    NAME: "General Inquiry",
-    VALUE: "comfortlife@test.com",
+    VALUE: "support@gocfs.pro",
     icon: <AlternateEmailIcon />,
   },
 ];
+
+export const eventSteps = [
+  {
+    title: "01",
+    subTitle: "Pick a Event",
+    description: "",
+  },
+  {
+    title: "02",
+    subTitle: "Submit a form",
+    description: "",
+  },
+  {
+    title: "03",
+    subTitle: "Get the refence ID",
+    description: "",
+  },
+  {
+    title: "04",
+    subTitle: "Get in touch!",
+    description: "",
+  },
+];
+
+export const BLANK_VALUE: string = "—";

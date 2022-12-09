@@ -1,14 +1,20 @@
-import { Button, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import "./Topnav.scss";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+} from "react-icons/fa";
 
 const Topnav = () => {
   return (
     <div className="top-nav">
       <Container className="top-nav-container">
-        <ul>
+        <ul className="left-icons">
           <li>
             <div className="top-nav-icon">
               <CallIcon />
@@ -21,12 +27,38 @@ const Topnav = () => {
             </div>
             <span>test@gmail.com</span>
           </li>
+          <li>
+            <div className="top-nav-icon">
+              <LocationOnIcon />
+            </div>
+            <span>Dasmarinas, Cavite, Philippines</span>
+          </li>
         </ul>
-        <Button variant="outlined" className="contact-btn">
-          <span>
-            Contact Us Now <ArrowRightAltIcon />
-          </span>
-        </Button>
+        <ul className="right-icons">
+          <li className="icon-text">
+            <span>Follow Our Socials</span>
+          </li>
+          <li>
+            <div className="top-nav-icon">
+              <FaFacebookF />
+            </div>
+          </li>
+          <li>
+            <div className="top-nav-icon">
+              <FaTwitter />
+            </div>
+          </li>
+          <li>
+            <div className="top-nav-icon">
+              <FaLinkedinIn />
+            </div>
+          </li>
+          <li>
+            <div className="top-nav-icon">
+              <FaInstagram />
+            </div>
+          </li>
+        </ul>
       </Container>
     </div>
   );
